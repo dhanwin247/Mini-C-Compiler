@@ -56,7 +56,7 @@ escape_sequences    0|a|b|f|n|r|t|v|"\\"|"\""|"\'"
 
 ("\"")[^\n\"]*("\"")                         { 
     print_token("String", yytext, yylineno); 
-    symbol_table_insert(constant_table, yytext, "String", yylineno);
+    insert(constant_table, yytext, "String", yylineno);
 }
 
 ("\"")[^\n\"]*                               { 
@@ -65,7 +65,7 @@ escape_sequences    0|a|b|f|n|r|t|v|"\\"|"\""|"\'"
 
 ("\'")(("\\"({escape_sequences}))|.)("\'")   { 
     print_token("Character", yytext, yylineno); 
-    symbol_table_insert(constant_table, yytext, "Character", yylineno);
+    insert(constant_table, yytext, "Character", yylineno);
 }
 
 ("\'")(((("\\")[^0abfnrtv\\\"\'][^\n\']*))|[^\n\''][^\n\'']+)("\'") { 
@@ -89,22 +89,22 @@ escape_sequences    0|a|b|f|n|r|t|v|"\\"|"\""|"\'"
     // int i=0;
     // for(i=0; yytext[i]!='\0' && yytext[i] !='('; ++i);
     // yytext[i] ='\0';
-    symbol_table_insert(symbol_table, yytext, "Function", yylineno);
+    insert(symbol_table, yytext, "Function", yylineno);
 }
 
 (_|{letter})({alphanum}|_)*                  { 
     print_token("Identifier", yytext, yylineno);
-    symbol_table_insert(symbol_table, yytext, "Identfier", yylineno);
+    insert(symbol_table, yytext, "Identfier", yylineno);
 }
 
 "-"?{digit}+                                 { 
     print_token("Integer", yytext, yylineno);
-    symbol_table_insert(constant_table, yytext, "Integer", yylineno);
+    insert(constant_table, yytext, "Integer", yylineno);
 }
 
 "-"?{digit}+\.({digit}+)?                    { 
     print_token("Floating Point", yytext, yylineno); 
-    symbol_table_insert(constant_table, yytext, "Floating point", yylineno);
+    insert(constant_table, yytext, "Floating point", yylineno);
 }
 
 "["                                          { print_token("Left Bracket", yytext, yylineno); }
@@ -141,8 +141,8 @@ int main()
 
    yylex();
 
-   symbol_table_print(symbol_table, "Symbol Table");
-   symbol_table_print(constant_table, "Constant Table");
+   Display(symbol_table, "Symbol Table");
+   Display(constant_table, "Constant Table");
 
    return 0;
 }

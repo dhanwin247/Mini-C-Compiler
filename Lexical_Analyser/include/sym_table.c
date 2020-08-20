@@ -5,16 +5,11 @@
 #include <string.h>
 #include "sym_table.h"
 
-void symbol_table_initialize(symbol_node_t **symbol_table){
+void initial(symbol_node_t **symbol_table){
 
    for(int i=0; i< MAX_SYMBOL_TABLE_SIZE; ++i){
       symbol_table[i] = NULL;
    }
-}
-
-int symbol_table_hash(const char *symbol){
-
-   return ((int)symbol[0]) % MAX_SYMBOL_TABLE_SIZE;
 }
 
 symbol_node_t *create_symbol_node(const char* symbol, const char *type, const int line_number){
@@ -30,11 +25,16 @@ symbol_node_t *create_symbol_node(const char* symbol, const char *type, const in
    return node;
 }
 
-void symbol_table_insert(symbol_node_t **symbol_table, const char* symbol, const char *type, const int line_number){
-   if(symbol_table_lookup(symbol_table, symbol))
+
+int hash(const char *symbol){
+   return ((int)symbol[0]) % MAX_SYMBOL_TABLE_SIZE;
+}
+
+void insert(symbol_node_t **symbol_table, const char* symbol, const char *type, const int line_number){
+   if(find(symbol_table, symbol))
       return;
 
-   int hash_index = symbol_table_hash(symbol);
+   int hash_index = hash(symbol);
    symbol_node_t *node = create_symbol_node(symbol, type, line_number);
 
    symbol_node_t *curr = symbol_table[hash_index];
@@ -50,9 +50,9 @@ void symbol_table_insert(symbol_node_t **symbol_table, const char* symbol, const
    }
 }
 
-bool symbol_table_lookup(symbol_node_t **symbol_table, const char* symbol){
+bool find(symbol_node_t **symbol_table, const char* symbol){
 
-   int hash_index = symbol_table_hash(symbol);
+   int hash_index = hash(symbol);
    for(symbol_node_t *curr = symbol_table[hash_index]; curr != NULL; curr = curr->next){
       // Symbol found in table
       if(!strcmp(curr->symbol, symbol)){
@@ -64,14 +64,14 @@ bool symbol_table_lookup(symbol_node_t **symbol_table, const char* symbol){
    return false;
 }
 
-void symbol_table_free(symbol_node_t **symbol_table){
+void Delete(symbol_node_t **symbol_table){
 
    for(int i=0; i< MAX_SYMBOL_TABLE_SIZE; ++i){
       free(symbol_table[i]);
    }
 }
 
-void symbol_table_print(symbol_node_t **symbol_table, const char *table_name){
+void Display(symbol_node_t **symbol_table, const char *table_name){
    printf("\n\n");
    printf("%s\t\n", table_name);
 
@@ -82,6 +82,5 @@ void symbol_table_print(symbol_node_t **symbol_table, const char *table_name){
          printf("|\t%-20s" "|\t%-20s |\t%-20d|" "\n", curr->symbol, curr->type, curr->line_number);
       }
    }
-
    printf("\n\n");
 }

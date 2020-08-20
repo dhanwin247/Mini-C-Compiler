@@ -17,14 +17,14 @@ struct symbol_node_struct {
 // const int MAX_SYMBOL_TABLE_SIZE = 10;
 
 // Function Prototypes
-void symbol_table_initialize(symbol_node_t **symbol_table);
+void initial(symbol_node_t **symbol_table);
 
-void symbol_table_insert(symbol_node_t **symbol_table, const char* symbol, const char *type, const int line_number);
+void insert(symbol_node_t **symbol_table, const char* symbol, const char *type, const int line_number);
 
-bool symbol_table_lookup(symbol_node_t **symbol_table, const char* symbol);
+bool find(symbol_node_t **symbol_table, const char* symbol);
 
-void symbol_table_free(symbol_node_t **symbol_table);
+void Delete(symbol_node_t **symbol_table);
 
-void symbol_table_print(symbol_node_t **symbol_table, const char *table_name);
+void Display(symbol_node_t **symbol_table, const char *table_name);
 
 #endif
