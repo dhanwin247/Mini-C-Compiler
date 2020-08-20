@@ -72,18 +72,16 @@ void symbol_table_free(symbol_node_t **symbol_table){
 }
 
 void symbol_table_print(symbol_node_t **symbol_table, const char *table_name){
-   printf("\n\n" FORE_MAG DASHES RESET);
-   printf(FORE_CYN "%s\t\n" RESET, table_name);
-   printf(FORE_YEL DASHES RESET);
+   printf("\n\n");
+   printf("%s\t\n", table_name);
 
-   printf(FORE_GRN "|\t%-20s" "|\t%-20s" "|\t%-20s|" "\n" RESET, "Symbol", "Type", "Line Number");
-   printf(FORE_YEL DASHES RESET);
+   printf("|\t%-20s" "|\t%-20s" "|\t%-20s|" "\n", "Symbol", "Type", "Line Number");
 
    for(int i=0; i< MAX_SYMBOL_TABLE_SIZE; ++i){
       for(symbol_node_t *curr = symbol_table[i]; curr != NULL; curr = curr->next){
-         printf(FORE_GRN "|\t%-20s" "|\t%-20s" ATTR_BOLD "|\t%-20d|" "\n" RESET, curr->symbol, curr->type, curr->line_number);
+         printf("|\t%-20s" "|\t%-20s |\t%-20d|" "\n", curr->symbol, curr->type, curr->line_number);
       }
    }
 
-   printf(FORE_MAG DASHES RESET "\n\n");
+   printf("\n\n");
 }

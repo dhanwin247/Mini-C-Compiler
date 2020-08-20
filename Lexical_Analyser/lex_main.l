@@ -11,7 +11,7 @@
 
 /* Auxiliary declarations*/
 %{
-   #include "include/symbol_table.h"
+   #include "include/sym_table.h"
    
    #define MAX_NODES 1000
 
@@ -137,7 +137,7 @@ int main()
    printf("\t\t\tLexical Analyser for C language\n");
    printf("\n");
 
-   printf(FORE_GRN "%-30s%-30s%-30s\n", "Token Type", "Token Value", "Line Number");
+   printf("%-30s%-30s%-30s\n", "Token Type", "Token Value", "Line Number");
 
    yylex();
 
