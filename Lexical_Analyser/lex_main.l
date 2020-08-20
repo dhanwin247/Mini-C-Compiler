@@ -1,8 +1,8 @@
 /* 
 * Lexical Analyser for C language
-* Team : Sai Krishna Anand, Suhas K S, Arnav Santosh, Nair, Dhanwin Rao
+* Team : Sai Krishna Anand, Suhas K S, Arnav Santosh Nair, Dhanwin Rao
 *
-* Usage: ./run.sh or ./runtests.sh
+* Usage: source execute_tests.sh
 */
 
 /* Declaration section */
@@ -18,7 +18,7 @@
    symbol_node_t *symbol_table[MAX_NODES];
    symbol_node_t *constant_table[MAX_NODES];
 
-   void print_token(char *info, char *token, int line_number);
+   void disp(char *info, char *token, int line_number);
 %}
 
 /* Regular definitions */
@@ -36,96 +36,93 @@ escape_sequences    0|a|b|f|n|r|t|v|"\\"|"\""|"\'"
 " "                                          {}
 
 "#include"[ ]*"<"{letter}({alphanum})*".h>"   { 
-    print_token("Preprocessor Directive", yytext, yylineno); 
+    disp("Preprocessor Directive", yytext, yylineno); 
 }
 
 "#define"[ ]+(_|{letter})({alphanum})*[ ]*(.)+   {
-    print_token("Preprocessor Directive", yytext, yylineno);
+    disp("Preprocessor Directive", yytext, yylineno);
 }
 
 "//".*                                       { 
-    print_token("Single Line Comment", yytext, yylineno); 
+    disp("Single Line Comment", yytext, yylineno); 
 }
 ("/*")(([^*]*[*]+[^*/])*([^*]*[*]+[/]))      { 
-    print_token("Multi Line Comment", yytext, yylineno); 
+    disp("Multi Line Comment", yytext, yylineno); 
 }
 
 ("/*")(([^*]*([*]+[^/])*)*)*                 { 
-    print_token("Error: Multi Line Comment Not Closed", yytext, yylineno); 
+    disp("Error: Multi Line Comment Not Closed", yytext, yylineno); 
 }
 
 ("\"")[^\n\"]*("\"")                         { 
-    print_token("String", yytext, yylineno); 
+    disp("String", yytext, yylineno); 
     insert(constant_table, yytext, "String", yylineno);
 }
 
 ("\"")[^\n\"]*                               { 
-    print_token("Error: Unclosed String", yytext, yylineno); 
+    disp("Error: Unclosed String", yytext, yylineno); 
     }
 
 ("\'")(("\\"({escape_sequences}))|.)("\'")   { 
-    print_token("Character", yytext, yylineno); 
+    disp("Character", yytext, yylineno); 
     insert(constant_table, yytext, "Character", yylineno);
 }
 
 ("\'")(((("\\")[^0abfnrtv\\\"\'][^\n\']*))|[^\n\''][^\n\'']+)("\'") { 
-    print_token("Error: Not a Character", yytext, yylineno); 
+    disp("Error: Not a Character", yytext, yylineno); 
 }
 
 {keyword}/[ ]*[(]?                           { 
-    print_token("Keyword", yytext, yylineno); 
+    disp("Keyword", yytext, yylineno); 
 }
 
 #include[/"<][ ]*{letter}{letter}*\.h[/">]   {
-    print_token("Header", yytext, yylineno);                                                 
+    disp("Header", yytext, yylineno);                                                 
 }
 
 {operator}                                   { 
-    print_token("Operator", yytext, yylineno); 
+    disp("Operator", yytext, yylineno); 
 }
 
 {function}                                   { 
-    print_token("Function", yytext, yylineno);
+    disp("Function", yytext, yylineno);
     // int i=0;
     // for(i=0; yytext[i]!='\0' && yytext[i] !='('; ++i);
     // yytext[i] ='\0';
     insert(symbol_table, yytext, "Function", yylineno);
 }
-
 (_|{letter})({alphanum}|_)*                  { 
-    print_token("Identifier", yytext, yylineno);
+    disp("Identifier", yytext, yylineno);
     insert(symbol_table, yytext, "Identfier", yylineno);
 }
-
 "-"?{digit}+                                 { 
-    print_token("Integer", yytext, yylineno);
+    disp("Integer", yytext, yylineno);
     insert(constant_table, yytext, "Integer", yylineno);
 }
-
 "-"?{digit}+\.({digit}+)?                    { 
-    print_token("Floating Point", yytext, yylineno); 
+    disp("Floating Point", yytext, yylineno); 
     insert(constant_table, yytext, "Floating point", yylineno);
 }
 
-"["                                          { print_token("Left Bracket", yytext, yylineno); }
+"["                                          { disp("Left Bracket", yytext, yylineno); }
 
-"]"                                          { print_token("Right Bracket", yytext, yylineno); }
+"]"                                          { disp("Right Bracket", yytext, yylineno); }
 
-"("                                          { print_token("Left Parantheses", yytext, yylineno); }
+"("                                          { disp("Left Parantheses", yytext, yylineno); }
 
-")"                                          { print_token("Right Parantheses", yytext, yylineno); }
+")"                                          { disp("Right Parantheses", yytext, yylineno); }
 
-"{"                                          { print_token("Left Brace", yytext, yylineno); }
+"{"                                          { disp("Left Brace", yytext, yylineno); }
 
-"}"                                          { print_token("Right Brace", yytext, yylineno); }
+"}"                                          { disp("Right Brace", yytext, yylineno); }
 
-","                                          { print_token("Comma", yytext, yylineno); }
+","                                          { disp("Comma", yytext, yylineno); }
 
-";"                                          { print_token("Semicolon", yytext, yylineno); }
+";"                                          { disp("Semicolon", yytext, yylineno); }
 
 %%
 
-void print_token(char *info, char *token, int line_number){
+void disp(char *info, char *token, int line_number){
    printf("%-30s%-30s%-30d\n", info, token, line_number);
 }
 

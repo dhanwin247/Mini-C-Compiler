@@ -1,0 +1,53 @@
+
+			Lexical Analyser for C language
+
+Token Type                    Token Value                   Line Number                   
+Preprocessor Directive        #include <stdio.h>            1                             
+Keyword                       int                           3                             
+Keyword                       main                          3                             
+Left Parantheses              (                             3                             
+Right Parantheses             )                             3                             
+Left Brace                    {                             3                             
+Keyword                       char                          4                             
+Operator                      *                             4                             
+Identifier                    s                             4                             
+Operator                      =                             4                             
+String                        "Hello!"                      4                             
+Semicolon                     ;                             4                             
+Keyword                       float                         5                             
+Identifier                    a                             5                             
+Operator                      =                             5                             
+Floating Point                3.14                          5                             
+Comma                         ,                             5                             
+Identifier                    b                             5                             
+Operator                      =                             5                             
+Floating Point                2.1                           5                             
+Comma                         ,                             5                             
+Identifier                    c                             5                             
+Semicolon                     ;                             5                             
+Identifier                    c                             7                             
+Operator                      =                             7                             
+Identifier                    a                             7                             
+Operator                      +                             7                             
+Identifier                    b                             7                             
+Semicolon                     ;                             7                             
+Right Brace                   }                             8                             
+
+
+Symbol Table	
+|	Symbol              |	Type                |	Line Number         |
+|	s                   |	Identfier            |	4                   |
+|	a                   |	Identfier            |	5                   |
+|	b                   |	Identfier            |	5                   |
+|	c                   |	Identfier            |	5                   |
+
+
+
+
+Constant Table	
+|	Symbol              |	Type                |	Line Number         |
+|	2.1                 |	Floating point       |	5                   |
+|	3.14                |	Floating point       |	5                   |
+|	"Hello!"            |	String               |	4                   |
+
+

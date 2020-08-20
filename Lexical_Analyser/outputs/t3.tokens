@@ -1,0 +1,29 @@
+
+			Lexical Analyser for C language
+
+Token Type                    Token Value                   Line Number                   
+Preprocessor Directive        #include <stdio.h>            1                             
+Keyword                       int                           3                             
+Keyword                       main                          3                             
+Left Parantheses              (                             3                             
+Right Parantheses             )                             3                             
+Left Brace                    {                             3                             
+Keyword                       char                          4                             
+Operator                      *                             4                             
+Identifier                    s                             4                             
+Operator                      =                             4                             
+Error: Unclosed String        "Unclosed                     4                             
+Right Brace                   }                             5                             
+
+
+Symbol Table	
+|	Symbol              |	Type                |	Line Number         |
+|	s                   |	Identfier            |	4                   |
+
+
+
+
+Constant Table	
+|	Symbol              |	Type                |	Line Number         |
+
+

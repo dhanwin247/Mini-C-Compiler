@@ -1,0 +1,36 @@
+
+			Lexical Analyser for C language
+
+Token Type                    Token Value                   Line Number                   
+Preprocessor Directive        #include <stdio.h>            1                             
+Keyword                       int                           3                             
+Keyword                       main                          3                             
+Left Parantheses              (                             3                             
+Right Parantheses             )                             3                             
+Left Brace                    {                             3                             
+Keyword                       int                           4                             
+Identifier                    a                             4                             
+Operator                      =                             4                             
+Integer                       1                             4                             
+Semicolon                     ;                             4                             
+Identifier                    k                             5                             
+Operator                      =                             5                             
+Integer                       2                             5                             
+Semicolon                     ;                             5                             
+Right Brace                   }                             6                             
+
+
+Symbol Table	
+|	Symbol              |	Type                |	Line Number         |
+|	a                   |	Identfier            |	4                   |
+|	k                   |	Identfier            |	5                   |
+
+
+
+
+Constant Table	
+|	Symbol              |	Type                |	Line Number         |
+|	2                   |	Integer              |	5                   |
+|	1                   |	Integer              |	4                   |
+
+

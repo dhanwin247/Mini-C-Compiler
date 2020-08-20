@@ -1,0 +1,23 @@
+
+			Lexical Analyser for C language
+
+Token Type                    Token Value                   Line Number                   
+Preprocessor Directive        #include <stdio.h>            1                             
+Keyword                       int                           3                             
+Keyword                       main                          3                             
+Left Parantheses              (                             3                             
+Right Parantheses             )                             3                             
+Left Brace                    {                             3                             
+Error: Multi Line Comment Not Closed/***Unclosed                  4                             
+
+
+Symbol Table	
+|	Symbol              |	Type                |	Line Number         |
+
+
+
+
+Constant Table	
+|	Symbol              |	Type                |	Line Number         |
+
+

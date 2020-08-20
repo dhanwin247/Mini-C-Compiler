@@ -1,0 +1,71 @@
+
+			Lexical Analyser for C language
+
+Token Type                    Token Value                   Line Number                   
+Preprocessor Directive        #include<stdio.h>             2                             
+Preprocessor Directive        #define NUM 5                 3                             
+Keyword                       int                           5                             
+Keyword                       main                          5                             
+Left Parantheses              (                             5                             
+Right Parantheses             )                             5                             
+Left Brace                    {                             6                             
+Keyword                       char                          7                             
+Identifier                    A                             7                             
+Left Bracket                  [                             7                             
+Right Bracket                 ]                             7                             
+Operator                      =                             7                             
+String                        "#define MAX 10"              7                             
+Semicolon                     ;                             7                             
+Keyword                       char                          8                             
+Identifier                    B                             8                             
+Left Bracket                  [                             8                             
+Right Bracket                 ]                             8                             
+Operator                      =                             8                             
+Error: Unclosed String        "Hello;                       8                             
+Keyword                       char                          9                             
+Identifier                    ch                            9                             
+Operator                      =                             9                             
+Character                     'B'                           9                             
+Semicolon                     ;                             9                             
+Keyword                       unsigned                      10                            
+Keyword                       int                           10                            
+Identifier                    a                             10                            
+Operator                      =                             10                            
+Integer                       1                             10                            
+Semicolon                     ;                             10                            
+Function                      printf                        11                            
+Left Parantheses              (                             11                            
+String                        "String = %s Value of Pi = %f"11                            
+Comma                         ,                             11                            
+Identifier                    A                             11                            
+Comma                         ,                             11                            
+Floating Point                3.14                          11                            
+Right Parantheses             )                             11                            
+Semicolon                     ;                             11                            
+	Keyword                       return                        12                            
+Integer                       0                             12                            
+Semicolon                     ;                             12                            
+Right Brace                   }                             13                            
+
+
+Symbol Table	
+|	Symbol              |	Type                |	Line Number         |
+|	printf              |	Function             |	11                  |
+|	A                   |	Identfier            |	7                   |
+|	B                   |	Identfier            |	8                   |
+|	a                   |	Identfier            |	10                  |
+|	ch                  |	Identfier            |	9                   |
+
+
+
+
+Constant Table	
+|	Symbol              |	Type                |	Line Number         |
+|	3.14                |	Floating point       |	11                  |
+|	"#define MAX 10"    |	String               |	7                   |
+|	"String = %s Value of Pi = %f"|	String               |	11                  |
+|	0                   |	Integer              |	12                  |
+|	'B'                 |	Character            |	9                   |
+|	1                   |	Integer              |	10                  |
+
+
