@@ -1,6 +1,4 @@
-#!/bin/bash
-# Usage ./runtests.sh for redirecting outputs to file,
-# and with an argument to print on commandline as well
+# Run : `source execute_tests.sh` for redirecting outputs to file,
 
 # Delete existing outputs directory and create a new one
 DIRECTORY='outputs/'

@@ -2,7 +2,7 @@
 * Lexical Analyser for C language
 * Team : Sai Krishna Anand, Suhas K S, Arnav Santosh Nair, Dhanwin Rao
 *
-* Usage: source execute_tests.sh
+* To run : source execute_tests.sh
 */
 
 /* Declaration section */
@@ -15,8 +15,8 @@
    
    #define MAX_NODES 1000
 
-   symbol_node_t *symbol_table[MAX_NODES];
-   symbol_node_t *constant_table[MAX_NODES];
+   sym_node *symbol_table[MAX_NODES];
+   sym_node *constant_table[MAX_NODES];
 
    void disp(char *info, char *token, int line_number);
 %}
@@ -43,33 +43,32 @@ escape_sequences    0|a|b|f|n|r|t|v|"\\"|"\""|"\'"
     disp("Preprocessor Directive", yytext, yylineno);
 }
 
+"["    { disp("Left Bracket", yytext, yylineno); }
+
+"]"    { disp("Right Bracket", yytext, yylineno); }
+
+"("    { disp("Left Parantheses", yytext, yylineno); }
+
+")"    { disp("Right Parantheses", yytext, yylineno); }
+
+"{"    { disp("Left Brace", yytext, yylineno); }
+
+"}"    { disp("Right Brace", yytext, yylineno); }
+
+","    { disp("Comma", yytext, yylineno); }
+
+";"    { disp("Semicolon", yytext, yylineno); }
+
 "//".*                                       { 
     disp("Single Line Comment", yytext, yylineno); 
 }
+
 ("/*")(([^*]*[*]+[^*/])*([^*]*[*]+[/]))      { 
     disp("Multi Line Comment", yytext, yylineno); 
 }
 
 ("/*")(([^*]*([*]+[^/])*)*)*                 { 
     disp("Error: Multi Line Comment Not Closed", yytext, yylineno); 
-}
-
-("\"")[^\n\"]*("\"")                         { 
-    disp("String", yytext, yylineno); 
-    insert(constant_table, yytext, "String", yylineno);
-}
-
-("\"")[^\n\"]*                               { 
-    disp("Error: Unclosed String", yytext, yylineno); 
-    }
-
-("\'")(("\\"({escape_sequences}))|.)("\'")   { 
-    disp("Character", yytext, yylineno); 
-    insert(constant_table, yytext, "Character", yylineno);
-}
-
-("\'")(((("\\")[^0abfnrtv\\\"\'][^\n\']*))|[^\n\''][^\n\'']+)("\'") { 
-    disp("Error: Not a Character", yytext, yylineno); 
 }
 
 {keyword}/[ ]*[(]?                           { 
@@ -91,6 +90,24 @@ escape_sequences    0|a|b|f|n|r|t|v|"\\"|"\""|"\'"
     // yytext[i] ='\0';
     insert(symbol_table, yytext, "Function", yylineno);
 }
+("\"")[^\n\"]*("\"")                         { 
+    disp("String", yytext, yylineno); 
+    insert(constant_table, yytext, "String", yylineno);
+}
+
+("\"")[^\n\"]*                               { 
+    disp("Error: Unclosed String", yytext, yylineno); 
+    }
+
+("\'")(("\\"({escape_sequences}))|.)("\'")   { 
+    disp("Character", yytext, yylineno); 
+    insert(constant_table, yytext, "Character", yylineno);
+}
+
+("\'")(((("\\")[^0abfnrtv\\\"\'][^\n\']*))|[^\n\''][^\n\'']+)("\'") { 
+    disp("Error: Not a Character", yytext, yylineno); 
+}
+
 (_|{letter})({alphanum}|_)*                  { 
     disp("Identifier", yytext, yylineno);
     insert(symbol_table, yytext, "Identfier", yylineno);
@@ -103,22 +120,6 @@ escape_sequences    0|a|b|f|n|r|t|v|"\\"|"\""|"\'"
     disp("Floating Point", yytext, yylineno); 
     insert(constant_table, yytext, "Floating point", yylineno);
 }
-
-"["                                          { disp("Left Bracket", yytext, yylineno); }
-
-"]"                                          { disp("Right Bracket", yytext, yylineno); }
-
-"("                                          { disp("Left Parantheses", yytext, yylineno); }
-
-")"                                          { disp("Right Parantheses", yytext, yylineno); }
-
-"{"                                          { disp("Left Brace", yytext, yylineno); }
-
-"}"                                          { disp("Right Brace", yytext, yylineno); }
-
-","                                          { disp("Comma", yytext, yylineno); }
-
-";"                                          { disp("Semicolon", yytext, yylineno); }
 
 %%
 

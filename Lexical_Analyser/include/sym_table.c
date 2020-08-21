@@ -1,20 +1,19 @@
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
 #include "sym_table.h"
 
-void initial(symbol_node_t **symbol_table){
+void initial(sym_node **symbol_table){
 
    for(int i=0; i< MAX_SYMBOL_TABLE_SIZE; ++i){
       symbol_table[i] = NULL;
    }
 }
 
-symbol_node_t *create_symbol_node(const char* symbol, const char *type, const int line_number){
+sym_node *create_symbol_node(const char* symbol, const char *type, const int line_number){
 
-   symbol_node_t *node = malloc(sizeof(symbol_node_t));
+   sym_node *node = malloc(sizeof(sym_node));
    node->symbol = malloc(sizeof(char) * (strlen(symbol) +1));
    strcpy(node->symbol, symbol);
    // node->symbol = (char*)symbol;
@@ -25,19 +24,18 @@ symbol_node_t *create_symbol_node(const char* symbol, const char *type, const in
    return node;
 }
 
-
 int hash(const char *symbol){
    return ((int)symbol[0]) % MAX_SYMBOL_TABLE_SIZE;
 }
 
-void insert(symbol_node_t **symbol_table, const char* symbol, const char *type, const int line_number){
+void insert(sym_node **symbol_table, const char* symbol, const char *type, const int line_number){
    if(find(symbol_table, symbol))
       return;
 
    int hash_index = hash(symbol);
-   symbol_node_t *node = create_symbol_node(symbol, type, line_number);
+   sym_node *node = create_symbol_node(symbol, type, line_number);
 
-   symbol_node_t *curr = symbol_table[hash_index];
+   sym_node *curr = symbol_table[hash_index];
    while(curr != NULL && curr->next != NULL){
       curr = curr->next;
    }
@@ -50,10 +48,10 @@ void insert(symbol_node_t **symbol_table, const char* symbol, const char *type, 
    }
 }
 
-bool find(symbol_node_t **symbol_table, const char* symbol){
+bool find(sym_node **symbol_table, const char* symbol){
 
    int hash_index = hash(symbol);
-   for(symbol_node_t *curr = symbol_table[hash_index]; curr != NULL; curr = curr->next){
+   for(sym_node *curr = symbol_table[hash_index]; curr != NULL; curr = curr->next){
       // Symbol found in table
       if(!strcmp(curr->symbol, symbol)){
          return true;
@@ -64,21 +62,21 @@ bool find(symbol_node_t **symbol_table, const char* symbol){
    return false;
 }
 
-void Delete(symbol_node_t **symbol_table){
+void Delete(sym_node **symbol_table){
 
    for(int i=0; i< MAX_SYMBOL_TABLE_SIZE; ++i){
       free(symbol_table[i]);
    }
 }
 
-void Display(symbol_node_t **symbol_table, const char *table_name){
+void Display(sym_node **symbol_table, const char *table_name){
    printf("\n\n");
    printf("%s\t\n", table_name);
 
    printf("|\t%-20s" "|\t%-20s" "|\t%-20s|" "\n", "Symbol", "Type", "Line Number");
 
    for(int i=0; i< MAX_SYMBOL_TABLE_SIZE; ++i){
-      for(symbol_node_t *curr = symbol_table[i]; curr != NULL; curr = curr->next){
+      for(sym_node *curr = symbol_table[i]; curr != NULL; curr = curr->next){
          printf("|\t%-20s" "|\t%-20s |\t%-20d|" "\n", curr->symbol, curr->type, curr->line_number);
       }
    }
