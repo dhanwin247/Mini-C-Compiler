@@ -32,6 +32,7 @@ escape_sequences    0|a|b|f|n|r|t|v|"\\"|"\""|"\'"
 
 /* Pattern Matching Rules */
 %%
+
 \n                                           {}             
 " "                                          {}
 
@@ -47,9 +48,9 @@ escape_sequences    0|a|b|f|n|r|t|v|"\\"|"\""|"\'"
 
 "]"    { disp("Right Bracket", yytext, yylineno); }
 
-"("    { disp("Left Parantheses", yytext, yylineno); }
+"("    { disp("Left Parentheses", yytext, yylineno); }
 
-")"    { disp("Right Parantheses", yytext, yylineno); }
+")"    { disp("Right Parentheses", yytext, yylineno); }
 
 "{"    { disp("Left Brace", yytext, yylineno); }
 
@@ -64,11 +65,19 @@ escape_sequences    0|a|b|f|n|r|t|v|"\\"|"\""|"\'"
 }
 
 ("/*")(([^*]*[*]+[^*/])*([^*]*[*]+[/]))      { 
-    disp("Multi Line Comment", yytext, yylineno); 
+    disp("Multi-line Comment", yytext, yylineno); 
 }
 
 ("/*")(([^*]*([*]+[^/])*)*)*                 { 
-    disp("Error: Multi Line Comment Not Closed", yytext, yylineno); 
+    disp("Error! Multi-line comment is not closed", yytext, yylineno); 
+}
+
+("\"")[^\n\"]*                               { 
+    disp("Error! String is unclosed", yytext, yylineno); 
+}
+
+("\'")(((("\\")[^0abfnrtv\\\"\'][^\n\']*))|[^\n\''][^\n\'']+)("\'") { 
+    disp("Error! Not a character", yytext, yylineno); 
 }
 
 {keyword}/[ ]*[(]?                           { 
@@ -85,40 +94,32 @@ escape_sequences    0|a|b|f|n|r|t|v|"\\"|"\""|"\'"
 
 {function}                                   { 
     disp("Function", yytext, yylineno);
-    // int i=0;
-    // for(i=0; yytext[i]!='\0' && yytext[i] !='('; ++i);
-    // yytext[i] ='\0';
     insert(symbol_table, yytext, "Function", yylineno);
 }
-("\"")[^\n\"]*("\"")                         { 
-    disp("String", yytext, yylineno); 
-    insert(constant_table, yytext, "String", yylineno);
-}
-
-("\"")[^\n\"]*                               { 
-    disp("Error: Unclosed String", yytext, yylineno); 
-    }
 
 ("\'")(("\\"({escape_sequences}))|.)("\'")   { 
     disp("Character", yytext, yylineno); 
     insert(constant_table, yytext, "Character", yylineno);
 }
 
-("\'")(((("\\")[^0abfnrtv\\\"\'][^\n\']*))|[^\n\''][^\n\'']+)("\'") { 
-    disp("Error: Not a Character", yytext, yylineno); 
-}
-
 (_|{letter})({alphanum}|_)*                  { 
     disp("Identifier", yytext, yylineno);
-    insert(symbol_table, yytext, "Identfier", yylineno);
+    insert(symbol_table, yytext, "Identifier", yylineno);
 }
+
 "-"?{digit}+                                 { 
     disp("Integer", yytext, yylineno);
     insert(constant_table, yytext, "Integer", yylineno);
 }
+
 "-"?{digit}+\.({digit}+)?                    { 
-    disp("Floating Point", yytext, yylineno); 
-    insert(constant_table, yytext, "Floating point", yylineno);
+    disp("Float", yytext, yylineno); 
+    insert(constant_table, yytext, "Float", yylineno);
+}
+
+("\"")[^\n\"]*("\"")                         { 
+    disp("String", yytext, yylineno); 
+    insert(constant_table, yytext, "String", yylineno);
 }
 
 %%
@@ -127,10 +128,9 @@ void disp(char *info, char *token, int line_number){
    printf("%-30s%-30s%-30d\n", info, token, line_number);
 }
 
-/* User SubRoutines */
+/* User Subroutines */
 int main()
 {
-   
    printf("\n");
    printf("\t\t\tLexical Analyser for C language\n");
    printf("\n");
