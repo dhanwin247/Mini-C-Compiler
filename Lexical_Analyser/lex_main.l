@@ -44,21 +44,21 @@ escape_sequences    0|a|b|f|n|r|t|v|"\\"|"\""|"\'"
     disp("Preprocessor Directive", yytext, yylineno);
 }
 
-"["    { disp("Left Bracket", yytext, yylineno); }
+"["    { disp("Special Character", yytext, yylineno); }
 
-"]"    { disp("Right Bracket", yytext, yylineno); }
+"]"    { disp("Special Character", yytext, yylineno); }
 
-"("    { disp("Left Parentheses", yytext, yylineno); }
+"("    { disp("Special Character", yytext, yylineno); }
 
-")"    { disp("Right Parentheses", yytext, yylineno); }
+")"    { disp("Special Character", yytext, yylineno); }
 
-"{"    { disp("Left Brace", yytext, yylineno); }
+"{"    { disp("Special Character", yytext, yylineno); }
 
-"}"    { disp("Right Brace", yytext, yylineno); }
+"}"    { disp("Special Character", yytext, yylineno); }
 
-","    { disp("Comma", yytext, yylineno); }
+","    { disp("Special Character", yytext, yylineno); }
 
-";"    { disp("Semicolon", yytext, yylineno); }
+";"    { disp("Special Character", yytext, yylineno); }
 
 "//".*                                       { 
     disp("Single Line Comment", yytext, yylineno); 
@@ -93,12 +93,12 @@ escape_sequences    0|a|b|f|n|r|t|v|"\\"|"\""|"\'"
 }
 
 {function}                                   { 
-    disp("Function", yytext, yylineno);
+    disp("Identifier", yytext, yylineno);
     insert(symbol_table, yytext, "Function", yylineno);
 }
 
 ("\'")(("\\"({escape_sequences}))|.)("\'")   { 
-    disp("Character", yytext, yylineno); 
+    disp("Identifier", yytext, yylineno); 
     insert(constant_table, yytext, "Character", yylineno);
 }
 
@@ -108,17 +108,17 @@ escape_sequences    0|a|b|f|n|r|t|v|"\\"|"\""|"\'"
 }
 
 "-"?{digit}+                                 { 
-    disp("Integer", yytext, yylineno);
+    disp("Constant", yytext, yylineno);
     insert(constant_table, yytext, "Integer", yylineno);
 }
 
 "-"?{digit}+\.({digit}+)?                    { 
-    disp("Float", yytext, yylineno); 
+    disp("Constant", yytext, yylineno); 
     insert(constant_table, yytext, "Float", yylineno);
 }
 
 ("\"")[^\n\"]*("\"")                         { 
-    disp("String", yytext, yylineno); 
+    disp("Constant", yytext, yylineno); 
     insert(constant_table, yytext, "String", yylineno);
 }
 
