@@ -44,22 +44,6 @@ escape_sequences    0|a|b|f|n|r|t|v|"\\"|"\""|"\'"
     disp("Preprocessor Directive", yytext, yylineno);
 }
 
-"["    { disp("Special Character", yytext, yylineno); }
-
-"]"    { disp("Special Character", yytext, yylineno); }
-
-"("    { disp("Special Character", yytext, yylineno); }
-
-")"    { disp("Special Character", yytext, yylineno); }
-
-"{"    { disp("Special Character", yytext, yylineno); }
-
-"}"    { disp("Special Character", yytext, yylineno); }
-
-","    { disp("Special Character", yytext, yylineno); }
-
-";"    { disp("Special Character", yytext, yylineno); }
-
 "//".*                                       { 
     disp("Single Line Comment", yytext, yylineno); 
 }
@@ -121,6 +105,22 @@ escape_sequences    0|a|b|f|n|r|t|v|"\\"|"\""|"\'"
     disp("Literal", yytext, yylineno); 
     insert(constant_table, yytext, "String", yylineno);
 }
+
+"["    { disp("Special Character", yytext, yylineno); }
+
+"]"    { disp("Special Character", yytext, yylineno); }
+
+"("    { disp("Special Character", yytext, yylineno); }
+
+")"    { disp("Special Character", yytext, yylineno); }
+
+"{"    { disp("Special Character", yytext, yylineno); }
+
+"}"    { disp("Special Character", yytext, yylineno); }
+
+","    { disp("Special Character", yytext, yylineno); }
+
+";"    { disp("Special Character", yytext, yylineno); }
 
 %%
 
