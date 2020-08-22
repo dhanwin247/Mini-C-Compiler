@@ -108,17 +108,17 @@ escape_sequences    0|a|b|f|n|r|t|v|"\\"|"\""|"\'"
 }
 
 "-"?{digit}+                                 { 
-    disp("Constant", yytext, yylineno);
+    disp("Literal", yytext, yylineno);
     insert(constant_table, yytext, "Integer", yylineno);
 }
 
 "-"?{digit}+\.({digit}+)?                    { 
-    disp("Constant", yytext, yylineno); 
+    disp("Literal", yytext, yylineno); 
     insert(constant_table, yytext, "Float", yylineno);
 }
 
 ("\"")[^\n\"]*("\"")                         { 
-    disp("Constant", yytext, yylineno); 
+    disp("Literal", yytext, yylineno); 
     insert(constant_table, yytext, "String", yylineno);
 }
 
