@@ -11,7 +11,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-#include "include/symbol_table.h"
+#include "include/sym_table.h"
 
 #define TRACE_ENABLED true
 

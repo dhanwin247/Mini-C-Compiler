@@ -1,0 +1,16 @@
+Symbol Table	
+|	Symbol              |	Type                |	Line Number         |
+|	s                   |	char                |	4                   |
+|	a                   |	float               |	5                   |
+|	b                   |	float               |	5                   |
+|	c                   |	float               |	5                   |
+|	main                |	Function: float     |	8                   |
+Constant Table	
+|	Symbol              |	Type                |	Line Number         |
+|	2.1                 |	float               |	5                   |
+|	3.14                |	float               |	5                   |
+|	"Hello!"            |	string              |	4                   |
+
+
+ Parsing complete  ✔ 
+

@@ -1,0 +1,12 @@
+Symbol Table	
+|	Symbol              |	Type                |	Line Number         |
+|	a                   |	int                 |	4                   |
+|	main                |	Function: int       |	6                   |
+Constant Table	
+|	Symbol              |	Type                |	Line Number         |
+|	2                   |	int                 |	5                   |
+|	1                   |	int                 |	4                   |
+
+
+ Parsing complete  ✔ 
+
