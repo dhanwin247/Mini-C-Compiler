@@ -1,10 +1,9 @@
 # Compiler-Design-Lab
+A Mini C Compiler built as a part of the Compiler Design Course, NITK.
 
-## To run the Lex Analyzer : 
+Team Members : 
 
-- cd Lexical_Analyzer
-- source execute_tests.sh
-- cd outputs
-- cat t1.tokens
-
-Instead of t1.tokens, we can use t2, t3, t4, t5, or t6.tokens
+- Sai Krishna Anand --> 181CO244
+- Arnav Santosh Nair --> 181CO209
+- Dhanwin Rao --> 181CO217
+- Suhas K S --> 181CO253
