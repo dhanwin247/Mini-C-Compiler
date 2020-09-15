@@ -1,0 +1,21 @@
+Symbol Table	
+|	Symbol              |	Type                |	Line Number         ||	Array Dimensions    |
+|	n                   |	int                 |	3                   |	0                   |
+|	originalN           |	int                 |	3                   |	0                   |
+|	printf              |	Function            |	4                   |	0                   |
+|	reversedN           |	int                 |	3                   |	0                   |
+|	remainder           |	int                 |	3                   |	0                   |
+|	scanf               |	Function            |	5                   |	0                   |
+|	main                |	Function: int       |	22                  |	0                   |
+Constant Table	
+|	Symbol              |	Type                |	Line Number         ||	Array Dimensions    |
+|	"Enter an integer: "|	string              |	4                   |	0                   |
+|	"%d"                |	string              |	5                   |	0                   |
+|	"%d is a palindrome.|	string              |	17                  |	0                   |
+|	"%d is not a palindr|	string              |	19                  |	0                   |
+|	0                   |	int                 |	3                   |	0                   |
+|	10                  |	int                 |	10                  |	0                   |
+
+
+ Parsing complete  ✔ 
+

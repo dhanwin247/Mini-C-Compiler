@@ -25,6 +25,11 @@ include                             {
                                         return INCLUDE;  
                                     }
 
+define                              {
+                                        trace("DEFINE");
+                                        return DEFINE;
+                                    }
+
 [\n]                                {
                                     }
 
@@ -300,8 +305,10 @@ return                              {
 void multiline_comment()
 {
     int c;
-    while ((c = input()) != 0){
-        if (c == '*'){
+    while ((c = input()) != 0)
+    {
+        if (c == '*')
+        {
             while ((c = input()) == '*')
                 ;
 
@@ -312,6 +319,5 @@ void multiline_comment()
                 break;
         }
     }
-
     yyerror("Unterminated Multiline Comment");
 }

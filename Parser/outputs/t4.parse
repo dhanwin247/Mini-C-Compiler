@@ -1,8 +1,8 @@
 Symbol Table	
-|	Symbol              |	Type                |	Line Number         |
-|	main                |	Function: int       |	9                   |
+|	Symbol              |	Type                |	Line Number         ||	Array Dimensions    |
+|	main                |	Function: int       |	9                   |	0                   |
 Constant Table	
-|	Symbol              |	Type                |	Line Number         |
+|	Symbol              |	Type                |	Line Number         ||	Array Dimensions    |
 
 
  Parsing complete  ✔ 

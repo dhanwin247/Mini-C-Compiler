@@ -1,0 +1,29 @@
+Symbol Table	
+|	Symbol              |	Type                |	Line Number         ||	Array Dimensions    |
+|	x                   |	int                 |	6                   |	0                   |
+|	n                   |	int                 |	37                  |	0                   |
+|	printf              |	Function            |	42                  |	0                   |
+|	r                   |	int                 |	6                   |	0                   |
+|	result              |	int                 |	39                  |	0                   |
+|	i                   |	int                 |	34                  |	0                   |
+|	scanf               |	Function            |	36                  |	0                   |
+|	sizeof              |	Function            |	37                  |	0                   |
+|	arr                 |	Array: int          |	6                   |	1                   |
+|	l                   |	int                 |	6                   |	0                   |
+|	binarySearch        |	Function            |	19                  |	0                   |
+|	mid                 |	int                 |	9                   |	0                   |
+|	main                |	Function: int       |	46                  |	0                   |
+Constant Table	
+|	Symbol              |	Type                |	Line Number         ||	Array Dimensions    |
+|	2                   |	int                 |	9                   |	0                   |
+|	6                   |	int                 |	33                  |	0                   |
+|	"%d"                |	string              |	36                  |	0                   |
+|	"Element is not pres|	string              |	42                  |	0                   |
+|	"Element is present |	string              |	44                  |	0                   |
+|	0                   |	int                 |	35                  |	0                   |
+|	1                   |	int                 |	19                  |	0                   |
+|	10                  |	int                 |	38                  |	0                   |
+
+
+ Parsing complete  ✔ 
+

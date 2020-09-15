@@ -1,15 +1,15 @@
 Symbol Table	
-|	Symbol              |	Type                |	Line Number         |
-|	s                   |	char                |	4                   |
-|	a                   |	float               |	5                   |
-|	b                   |	float               |	5                   |
-|	c                   |	float               |	5                   |
-|	main                |	Function: float     |	8                   |
+|	Symbol              |	Type                |	Line Number         ||	Array Dimensions    |
+|	s                   |	char                |	4                   |	0                   |
+|	a                   |	float               |	5                   |	0                   |
+|	b                   |	float               |	5                   |	0                   |
+|	c                   |	float               |	5                   |	0                   |
+|	main                |	Function: float     |	8                   |	0                   |
 Constant Table	
-|	Symbol              |	Type                |	Line Number         |
-|	2.1                 |	float               |	5                   |
-|	3.14                |	float               |	5                   |
-|	"Hello!"            |	string              |	4                   |
+|	Symbol              |	Type                |	Line Number         ||	Array Dimensions    |
+|	2.1                 |	float               |	5                   |	0                   |
+|	3.14                |	float               |	5                   |	0                   |
+|	"Hello!"            |	string              |	4                   |	0                   |
 
 
  Parsing complete  ✔ 

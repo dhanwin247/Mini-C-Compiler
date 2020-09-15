@@ -1,0 +1,30 @@
+Symbol Table	
+|	Symbol              |	Type                |	Line Number         ||	Array Dimensions    |
+|	xp                  |	int                 |	3                   |	0                   |
+|	n                   |	int                 |	11                  |	0                   |
+|	yp                  |	int                 |	3                   |	0                   |
+|	printf              |	Function            |	27                  |	0                   |
+|	printArray          |	Function: int       |	29                  |	0                   |
+|	swap                |	Function: int       |	8                   |	0                   |
+|	i                   |	int                 |	13                  |	0                   |
+|	size                |	int                 |	23                  |	0                   |
+|	scanf               |	Function            |	37                  |	0                   |
+|	sizeof              |	Function            |	38                  |	0                   |
+|	temp                |	int                 |	5                   |	0                   |
+|	j                   |	int                 |	13                  |	0                   |
+|	arr                 |	Array: int          |	11                  |	1                   |
+|	bubbleSort          |	Function: int       |	20                  |	0                   |
+|	main                |	Function: int       |	43                  |	0                   |
+Constant Table	
+|	Symbol              |	Type                |	Line Number         ||	Array Dimensions    |
+|	"%d "               |	string              |	27                  |	0                   |
+|	"\n"                |	string              |	28                  |	0                   |
+|	6                   |	int                 |	34                  |	0                   |
+|	"%d"                |	string              |	37                  |	0                   |
+|	"Sorted array: \n"  |	string              |	40                  |	0                   |
+|	0                   |	int                 |	14                  |	0                   |
+|	1                   |	int                 |	14                  |	0                   |
+
+
+ Parsing complete  ✔ 
+

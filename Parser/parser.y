@@ -1,5 +1,5 @@
 /*
-    C Compiler Parser
+    Mini C Compiler Parser
     Team :
         Sai Krishna Anand -- 181CO244
         Suhas K S -- 181CO253
@@ -41,6 +41,7 @@ char datatype[100];
 %token <char_ptr> CONSTANT_CHAR
 
 %token INCLUDE
+%token DEFINE
 
 // To allow for mutiple datatypes
 %union {
@@ -66,6 +67,8 @@ char datatype[100];
 Begin   
     : Include
     | Include Begin
+    | Define Begin
+    | Define
     | Declaration
     | Declaration Begin
 	| Function_Definition
@@ -78,21 +81,21 @@ Declaration
 
 Identifier_List
     : Array_Notation
-    | IDENTIFIER ',' Identifier_List        {Insert(symbol_table,$1,datatype,yylineno);}
+    | IDENTIFIER ',' Identifier_List        {Insert(symbol_table,$1,datatype,yylineno, false);}
     | '*' IDENTIFIER ',' Identifier_List    {
                                                 int len = strlen(datatype);
                                                 datatype[len] = '*';
                                                 datatype[len +1] = '\0';
-                                                Insert(symbol_table,$2,datatype,yylineno);
+                                                Insert(symbol_table,$2,datatype,yylineno, false);
                                                 datatype[len] = '\0';
                                             }
     | Array_Notation ',' Identifier_List 
-    | IDENTIFIER                            {Insert(symbol_table,$1,datatype,yylineno);} 
+    | IDENTIFIER                            {Insert(symbol_table,$1,datatype,yylineno, false);} 
     | '*' IDENTIFIER                        {
                                                 int len = strlen(datatype);
                                                 datatype[len] = '*';
                                                 datatype[len +1] = '\0';
-                                                Insert(symbol_table,$2,datatype,yylineno);
+                                                Insert(symbol_table,$2,datatype,yylineno, false);
                                                 datatype[len] = '\0';
                                             }
     | Define_Assign ',' Identifier_List
@@ -103,16 +106,16 @@ Function_Definition
 	: Type IDENTIFIER '(' Formal_Param_List ')' Compound_Statement      {                            
                                                                             char funcType[100] = "Function: ";
                                                                             strcat(funcType, datatype);
-                                                                            Insert(symbol_table,$2, funcType, yylineno);
+                                                                            Insert(symbol_table,$2, funcType, yylineno, false);
                                                                         }
 	;
 
 Formal_Param_List
-	: Type IDENTIFIER                                  {Insert(symbol_table,$2,datatype,yylineno);trace("Formal_Param_List Rule 1\n");}
-	| Type '*' IDENTIFIER                              {Insert(symbol_table,$3,datatype,yylineno);trace("Formal_Param_List Rule 2\n");}
+	: Type IDENTIFIER                                  {Insert(symbol_table,$2,datatype,yylineno, false);trace("Formal_Param_List Rule 1\n");}
+	| Type '*' IDENTIFIER                              {Insert(symbol_table,$3,datatype,yylineno, false);trace("Formal_Param_List Rule 2\n");}
 	| Type Array_Notation                              {trace("Formal_Param_List Rule 3\n");}
-	| Type IDENTIFIER ',' Formal_Param_List            {Insert(symbol_table,$2,datatype,yylineno);trace("Formal_Param_List Rule 4\n");}
-	| Type '*' IDENTIFIER ',' Formal_Param_List        {Insert(symbol_table,$3,datatype,yylineno);trace("Formal_Param_List Rule 5\n");}
+	| Type IDENTIFIER ',' Formal_Param_List            {Insert(symbol_table,$2,datatype,yylineno, false);trace("Formal_Param_List Rule 4\n");}
+	| Type '*' IDENTIFIER ',' Formal_Param_List        {Insert(symbol_table,$3,datatype,yylineno, false);trace("Formal_Param_List Rule 5\n");}
 	| Type Array_Notation ',' Formal_Param_List        {trace("Formal_Param_List Rule 6\n");}
 	|
 	;
@@ -137,31 +140,34 @@ Array_Notation
     : IDENTIFIER '[' ']'            {   
                                         char arrayType[100] = "Array: ";
                                         strcat(arrayType, datatype);
-                                        Insert(symbol_table, $1, arrayType, yylineno);
+                                        Insert(symbol_table, $1, arrayType, yylineno, true);
                                     }
     | IDENTIFIER '[' Expression ']' {   
-                                        char arrayType[100] = "Array: ";strcat(arrayType, datatype);
-                                        Insert(symbol_table,$1, arrayType,yylineno);
+                                        char arrayType[100] = "Array: ";
+                                        strcat(arrayType, datatype);
+                                        Insert(symbol_table,$1, arrayType, yylineno, true);
                                     }
     | '*' IDENTIFIER '[' Expression ']' {   
                                         int len = strlen(datatype);
                                         datatype[len] = '*';
                                         datatype[len +1] = '\0';                                
-                                        char arrayType[100] = "Array: ";strcat(arrayType, datatype);
-                                        Insert(symbol_table,$2, arrayType,yylineno);
+                                        char arrayType[100] = "Array: ";
+                                        strcat(arrayType, datatype);
+                                        Insert(symbol_table,$2, arrayType,yylineno, true);
                                         datatype[len] = '\0';
                                     }
     | '&' IDENTIFIER '[' Expression ']' {
-                                        char arrayType[100] = "Array: ";strcat(arrayType, datatype);
-                                        Insert(symbol_table,$2, arrayType,yylineno);
+                                        char arrayType[100] = "Array: ";
+                                        strcat(arrayType, datatype);
+                                        Insert(symbol_table,$2, arrayType,yylineno, true);
                                     }
     ;
 
 
 
 Define_Assign
-    : IDENTIFIER Assignment_Operator Expression          {Insert(symbol_table,$1,datatype,yylineno);trace("Define_Assign Rule 1\n");}  
-    | '*' IDENTIFIER Assignment_Operator Expression      {Insert(symbol_table,$2,datatype,yylineno);}
+    : IDENTIFIER Assignment_Operator Expression          {Insert(symbol_table,$1,datatype,yylineno, false);trace("Define_Assign Rule 1\n");}  
+    | '*' IDENTIFIER Assignment_Operator Expression      {Insert(symbol_table,$2,datatype,yylineno, false);}
     | Array_Notation Assignment_Operator Expression                   
     ;
 
@@ -230,10 +236,10 @@ Multiplicative_Expression
 
 Primary
     : '(' Expression ')'
-    | CONSTANT_INTEGER     {Insert(constant_table, $1, "int", yylineno); trace("CONSTANT_INTEGER\n");}
-    | CONSTANT_FLOAT       {Insert(constant_table, $1, "float", yylineno); trace("CONSTANT_FLOAT\n");}
-    | CONSTANT_CHAR        {Insert(constant_table, $1, "char", yylineno); trace("CONSTANT_CHAR\n");}
-    | CONSTANT_STRING      {Insert(constant_table, $1, "string", yylineno); trace("CONSTANT_STRING\n");}
+    | CONSTANT_INTEGER     {Insert(constant_table, $1, "int", yylineno, false); trace("CONSTANT_INTEGER\n");}
+    | CONSTANT_FLOAT       {Insert(constant_table, $1, "float", yylineno, false); trace("CONSTANT_FLOAT\n");}
+    | CONSTANT_CHAR        {Insert(constant_table, $1, "char", yylineno, false); trace("CONSTANT_CHAR\n");}
+    | CONSTANT_STRING      {Insert(constant_table, $1, "string", yylineno, false); trace("CONSTANT_STRING\n");}
     | IDENTIFIER           {trace("Primary Identifier\n");}
     | '*' IDENTIFIER       {trace("Pointer Identifier\n");}
     | '&' IDENTIFIER       {trace("Address of Identifier\n");}
@@ -300,7 +306,7 @@ Else_Statement
     ;
 
 Function_Call
-    : IDENTIFIER '(' Param_List ')'     {Insert(symbol_table, $1, "Function", yylineno);trace("Function Call\n");} 
+    : IDENTIFIER '(' Param_List ')'     {Insert(symbol_table, $1, "Function", yylineno, false);trace("Function Call\n");} 
     ;
 
 Include_Statement
@@ -311,6 +317,14 @@ Include_Statement
 Include
 	: Include_Statement
 	;
+Define 
+    : Define_Statement
+    ;
+Define_Statement
+    : '#' DEFINE IDENTIFIER IDENTIFIER
+    | '#' DEFINE IDENTIFIER CONSTANT_INTEGER
+    | '#' DEFINE IDENTIFIER CONSTANT_FLOAT
+    ;
 
 
 %%
@@ -318,7 +332,7 @@ Include
 
 inline void trace(char *s){
     if(TRACE_ENABLED)
-        fprintf(stderr,"%-20.20s%20.20s%20d\n", s, yytext, yylineno);
+        fprintf(stderr,"%-20.20s%20.20s%20d\n", s, yytext, yylineno, false);
 }
 
 int main()

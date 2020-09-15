@@ -1,0 +1,28 @@
+Symbol Table	
+|	Symbol              |	Type                |	Line Number         ||	Array Dimensions    |
+|	n                   |	int                 |	3                   |	0                   |
+|	printf              |	Function            |	26                  |	0                   |
+|	printArray          |	Function: int       |	28                  |	0                   |
+|	i                   |	int                 |	5                   |	0                   |
+|	swap                |	Function            |	17                  |	0                   |
+|	selectionSort       |	Function: int       |	19                  |	0                   |
+|	size                |	int                 |	22                  |	0                   |
+|	scanf               |	Function            |	36                  |	0                   |
+|	sizeof              |	Function            |	37                  |	0                   |
+|	j                   |	int                 |	5                   |	0                   |
+|	arr                 |	Array: int          |	3                   |	1                   |
+|	min_idx             |	int                 |	5                   |	0                   |
+|	main                |	Function: int       |	42                  |	0                   |
+Constant Table	
+|	Symbol              |	Type                |	Line Number         ||	Array Dimensions    |
+|	"%d "               |	string              |	26                  |	0                   |
+|	"\n"                |	string              |	27                  |	0                   |
+|	6                   |	int                 |	33                  |	0                   |
+|	"%d"                |	string              |	36                  |	0                   |
+|	"Sorted array: \n"  |	string              |	39                  |	0                   |
+|	0                   |	int                 |	8                   |	0                   |
+|	1                   |	int                 |	8                   |	0                   |
+
+
+ Parsing complete  ✔ 
+

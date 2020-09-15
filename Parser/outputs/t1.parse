@@ -1,11 +1,11 @@
 Symbol Table	
-|	Symbol              |	Type                |	Line Number         |
-|	a                   |	int                 |	4                   |
-|	main                |	Function: int       |	6                   |
+|	Symbol              |	Type                |	Line Number         ||	Array Dimensions    |
+|	a                   |	int                 |	4                   |	0                   |
+|	main                |	Function: int       |	6                   |	0                   |
 Constant Table	
-|	Symbol              |	Type                |	Line Number         |
-|	2                   |	int                 |	5                   |
-|	1                   |	int                 |	4                   |
+|	Symbol              |	Type                |	Line Number         ||	Array Dimensions    |
+|	2                   |	int                 |	5                   |	0                   |
+|	1                   |	int                 |	4                   |	0                   |
 
 
  Parsing complete  ✔ 

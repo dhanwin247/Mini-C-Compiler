@@ -9,6 +9,7 @@ struct symbol_node_struct {
   char *symbol;
   char *type;
   int line_number;
+  int array_dim;
 
   // symbol_node_t* left; // For binary tree based symbol table 
   symbol_node_t *next;
@@ -22,7 +23,7 @@ void Initialize(symbol_node_t **symbol_table);
 
 // int Hash(const char *symbol);
 
-void Insert(symbol_node_t **symbol_table, const char* symbol, const char *type, const int line_number);
+void Insert(symbol_node_t **symbol_table, const char* symbol, const char *type, const int line_number, bool isArray);
 
 bool Find(symbol_node_t **symbol_table, const char* symbol);
 
