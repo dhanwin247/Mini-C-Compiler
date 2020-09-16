@@ -150,7 +150,7 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 47 "parser.y" /* yacc.c:1909  */
+#line 49 "parser.y" /* yacc.c:1909  */
 
 	char char_ptr[100];
 

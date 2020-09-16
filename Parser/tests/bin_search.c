@@ -31,6 +31,7 @@ int binarySearch(int arr[], int l, int r, int x)
 int main() 
 { 
     int arr[6];
+    int arr1[4][2];
     int i;
     for(i = 0; i < 6; i++)
         scanf("%d", &arr[i]);

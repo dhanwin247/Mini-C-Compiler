@@ -8,7 +8,7 @@ mkdir "$DIRECTORY"
 yacc -d parser.y
 lex lex_p.l
 
-gcc lex.yy.c y.tab.c include/sym_table.c -w -lm -o parser.out 
+gcc -g lex.yy.c y.tab.c include/sym_table.c -w -lm -o parser.out 
 
 for testcase in $(ls tests); do
     TEMP_OUTPUT="$DIRECTORY$testcase"

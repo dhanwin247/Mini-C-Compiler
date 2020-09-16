@@ -1,5 +1,6 @@
 %{
 #include "y.tab.h"
+int nest_level = 0;
 %}
 
 number          [0-9]
@@ -35,10 +36,12 @@ define                              {
 
 [{]                                 { 
                                         trace("{");
+                                        nest_level++;
                                         return *yytext;
                                     }
 [}]                                 { 
                                         trace("}");
+                                        nest_level--;
                                         return *yytext;
                                     }
 

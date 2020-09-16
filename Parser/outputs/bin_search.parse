@@ -1,28 +1,30 @@
 Symbol Table	
-|	Symbol              |	Type                |	Line Number         ||	Array Dimensions    |
-|	x                   |	int                 |	6                   |	0                   |
-|	n                   |	int                 |	37                  |	0                   |
-|	printf              |	Function            |	42                  |	0                   |
-|	r                   |	int                 |	6                   |	0                   |
-|	result              |	int                 |	39                  |	0                   |
-|	i                   |	int                 |	34                  |	0                   |
-|	scanf               |	Function            |	36                  |	0                   |
-|	sizeof              |	Function            |	37                  |	0                   |
-|	arr                 |	Array: int          |	6                   |	1                   |
-|	l                   |	int                 |	6                   |	0                   |
-|	binarySearch        |	Function            |	19                  |	0                   |
-|	mid                 |	int                 |	9                   |	0                   |
-|	main                |	Function: int       |	46                  |	0                   |
+|	Symbol              |	Type                |	Line Number         ||	Array Dimensions    ||	Parameter Lists     ||	Nest Level          |
+|	x                   |	int                 |	6                   |	0                   |	Params              |	0                   |
+|	n                   |	int                 |	38                  |	0                   |	                    |	1                   |
+|	printf              |	Function            |	43                  |	0                   |	                    |	1                   |
+|	r                   |	int                 |	6                   |	0                   |	Params              |	0                   |
+|	result              |	int                 |	40                  |	0                   |	                    |	1                   |
+|	i                   |	int                 |	35                  |	0                   |	                    |	1                   |
+|	scanf               |	Function            |	37                  |	0                   |	                    |	1                   |
+|	sizeof              |	Function            |	38                  |	0                   |	                    |	1                   |
+|	arr                 |	Array: int          |	6                   |	1                   |	                    |	0                   |
+|	arr1                |	Array: int          |	34                  |	2                   |	                    |	1                   |
+|	l                   |	int                 |	6                   |	0                   |	Params              |	0                   |
+|	binarySearch        |	Function            |	19                  |	0                   |	                    |	2                   |
+|	mid                 |	int                 |	9                   |	0                   |	                    |	2                   |
+|	main                |	Function: int       |	47                  |	0                   |	                    |	0                   |
 Constant Table	
-|	Symbol              |	Type                |	Line Number         ||	Array Dimensions    |
-|	2                   |	int                 |	9                   |	0                   |
-|	6                   |	int                 |	33                  |	0                   |
-|	"%d"                |	string              |	36                  |	0                   |
-|	"Element is not pres|	string              |	42                  |	0                   |
-|	"Element is present |	string              |	44                  |	0                   |
-|	0                   |	int                 |	35                  |	0                   |
-|	1                   |	int                 |	19                  |	0                   |
-|	10                  |	int                 |	38                  |	0                   |
+|	Symbol              |	Type                |	Line Number         ||	Array Dimensions    ||	Parameter Lists     ||	Nest Level          |
+|	2                   |	int                 |	9                   |	0                   |	                    |	2                   |
+|	4                   |	int                 |	34                  |	0                   |	                    |	1                   |
+|	6                   |	int                 |	33                  |	0                   |	                    |	1                   |
+|	"%d"                |	string              |	37                  |	0                   |	                    |	1                   |
+|	"Element is not pres|	string              |	43                  |	0                   |	                    |	1                   |
+|	"Element is present |	string              |	45                  |	0                   |	                    |	1                   |
+|	0                   |	int                 |	36                  |	0                   |	                    |	1                   |
+|	1                   |	int                 |	19                  |	0                   |	                    |	2                   |
+|	10                  |	int                 |	39                  |	0                   |	                    |	1                   |
 
 
  Parsing complete  ✔ 

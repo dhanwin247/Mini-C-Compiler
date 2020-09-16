@@ -27,14 +27,15 @@ symbol_node_t *Create_Node(const char* symbol, const char *type, const int line_
    return node;
 }
 
-void Insert(symbol_node_t **symbol_table, const char* symbol, const char *type, const int line_number, bool isArray){
+void Insert(symbol_node_t **symbol_table, const char* symbol, const char *type, const int line_number, int arrayDim, const char* paramList, int nestLevel){
    if(Find(symbol_table, symbol))
       return;
 
    int hash_index = Hash(symbol);
-   symbol_node_t *node = Create_Node(symbol, type, line_number);
-   if(isArray) 
-      node->array_dim = 1;
+   symbol_node_t *node = Create_Node(symbol, type, line_number); 
+   node->array_dim = arrayDim;
+   node->paramList = paramList;
+   node->nestLevel = nestLevel;
 
    symbol_node_t *curr = symbol_table[hash_index];
    while(curr != NULL && curr->next != NULL){
@@ -73,11 +74,11 @@ void Free(symbol_node_t **symbol_table){
 void Display(symbol_node_t **symbol_table, const char *table_name){
    printf("%s\t\n", table_name);
 
-   printf("|\t%-20.20s" "|\t%-20.20s" "|\t%-20.20s|" "|\t%-20.20s|" "\n", "Symbol", "Type", "Line Number", "Array Dimensions");
+   printf("|\t%-20.20s" "|\t%-20.20s" "|\t%-20.20s|" "|\t%-20.20s|" "|\t%-20.20s|" "|\t%-20.20s|" "\n", "Symbol", "Type", "Line Number", "Array Dimensions", "Parameter Lists", "Nest Level");
 
    for(int i=0; i< MAX_SYMBOL_TABLE_SIZE; ++i){
       for(symbol_node_t *curr = symbol_table[i]; curr != NULL; curr = curr->next){
-         printf("|\t%-20.20s" "|\t%-20.20s|\t%-20d|\t%-20d|" "\n", curr->symbol, curr->type, curr->line_number, curr->array_dim);
+         printf("|\t%-20.20s" "|\t%-20.20s|\t%-20d|\t%-20d|\t%-20.20s|\t%-20d|" "\n", curr->symbol, curr->type, curr->line_number, curr->array_dim, curr->paramList, curr->nestLevel);
       }
    }
 }

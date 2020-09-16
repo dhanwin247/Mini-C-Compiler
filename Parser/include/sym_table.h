@@ -10,6 +10,8 @@ struct symbol_node_struct {
   char *type;
   int line_number;
   int array_dim;
+  char* paramList;
+  int nestLevel;
 
   // symbol_node_t* left; // For binary tree based symbol table 
   symbol_node_t *next;
@@ -17,13 +19,13 @@ struct symbol_node_struct {
 
 #define MAX_SYMBOL_TABLE_SIZE 10
 // const int MAX_SYMBOL_TABLE_SIZE = 10;
-
+// extern int nest_level;
 // Function Prototypes
 void Initialize(symbol_node_t **symbol_table);
 
 // int Hash(const char *symbol);
 
-void Insert(symbol_node_t **symbol_table, const char* symbol, const char *type, const int line_number, bool isArray);
+void Insert(symbol_node_t **symbol_table, const char* symbol, const char *type, const int line_number, int arrayDim, const char* param_list, int nestLevel);
 
 bool Find(symbol_node_t **symbol_table, const char* symbol);
 

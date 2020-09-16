@@ -1,11 +1,11 @@
 Symbol Table	
-|	Symbol              |	Type                |	Line Number         ||	Array Dimensions    |
-|	a                   |	int                 |	4                   |	0                   |
-|	main                |	Function: int       |	6                   |	0                   |
+|	Symbol              |	Type                |	Line Number         ||	Array Dimensions    ||	Parameter Lists     ||	Nest Level          |
+|	a                   |	int                 |	4                   |	0                   |	                    |	1                   |
+|	main                |	Function: int       |	6                   |	0                   |	                    |	0                   |
 Constant Table	
-|	Symbol              |	Type                |	Line Number         ||	Array Dimensions    |
-|	2                   |	int                 |	5                   |	0                   |
-|	1                   |	int                 |	4                   |	0                   |
+|	Symbol              |	Type                |	Line Number         ||	Array Dimensions    ||	Parameter Lists     ||	Nest Level          |
+|	2                   |	int                 |	5                   |	0                   |	                    |	1                   |
+|	1                   |	int                 |	4                   |	0                   |	                    |	1                   |
 
 
  Parsing complete  ✔ 

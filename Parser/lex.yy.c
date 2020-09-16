@@ -578,8 +578,9 @@ char *yytext;
 #line 1 "lex_p.l"
 #line 2 "lex_p.l"
 #include "y.tab.h"
-#line 582 "lex.yy.c"
+int nest_level = 0;
 #line 583 "lex.yy.c"
+#line 584 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -796,9 +797,9 @@ YY_DECL
 		}
 
 	{
-#line 13 "lex_p.l"
+#line 14 "lex_p.l"
 
-#line 802 "lex.yy.c"
+#line 803 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -868,17 +869,17 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 14 "lex_p.l"
+#line 15 "lex_p.l"
 {}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 16 "lex_p.l"
+#line 17 "lex_p.l"
 { multiline_comment(); }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 18 "lex_p.l"
+#line 19 "lex_p.l"
 {  
                                         trace("#");
                                         return *yytext;  
@@ -886,7 +887,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 23 "lex_p.l"
+#line 24 "lex_p.l"
 {  
                                         trace("INCLUDE");
                                         return INCLUDE;  
@@ -894,7 +895,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 28 "lex_p.l"
+#line 29 "lex_p.l"
 {
                                         trace("DEFINE");
                                         return DEFINE;
@@ -903,30 +904,32 @@ YY_RULE_SETUP
 case 6:
 /* rule 6 can match eol */
 YY_RULE_SETUP
-#line 33 "lex_p.l"
+#line 34 "lex_p.l"
 {
                                     }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 36 "lex_p.l"
+#line 37 "lex_p.l"
 { 
                                         trace("{");
+                                        nest_level++;
                                         return *yytext;
                                     }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 40 "lex_p.l"
+#line 42 "lex_p.l"
 { 
                                         trace("}");
+                                        nest_level--;
                                         return *yytext;
                                     }
 	YY_BREAK
 case 9:
 /* rule 9 can match eol */
 YY_RULE_SETUP
-#line 45 "lex_p.l"
+#line 48 "lex_p.l"
 { 
                                         if(yytext[yyleng-1]!='"'){
                                             yyerror("Unclosed String\n");
@@ -938,7 +941,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 54 "lex_p.l"
+#line 57 "lex_p.l"
 { 
                                         trace("INT");
 										strcpy(yylval.char_ptr, yytext);
@@ -947,7 +950,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 60 "lex_p.l"
+#line 63 "lex_p.l"
 { 
                                         trace("FLOAT");
 										strcpy(yylval.char_ptr, yytext);
@@ -956,7 +959,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 65 "lex_p.l"
+#line 68 "lex_p.l"
 { 
                                         trace("CHAR");
 										strcpy(yylval.char_ptr, yytext);
@@ -965,7 +968,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 70 "lex_p.l"
+#line 73 "lex_p.l"
 { 
                                         trace("DOUBLE");
 										strcpy(yylval.char_ptr, yytext);
@@ -974,7 +977,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 75 "lex_p.l"
+#line 78 "lex_p.l"
 { 
                                         trace("VOID");
 										strcpy(yylval.char_ptr, yytext);
@@ -983,7 +986,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 80 "lex_p.l"
+#line 83 "lex_p.l"
 { 
                                         trace("SIGNED");
                                         return SIGNED;
@@ -991,7 +994,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 84 "lex_p.l"
+#line 87 "lex_p.l"
 { 
                                         trace("UNSIGNED");
                                         return UNSIGNED;
@@ -999,7 +1002,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 88 "lex_p.l"
+#line 91 "lex_p.l"
 { 
                                         trace("LONG");
                                         return LONG;
@@ -1007,7 +1010,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 92 "lex_p.l"
+#line 95 "lex_p.l"
 { 
                                         trace("SHORT");
                                         return SHORT;
@@ -1016,7 +1019,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 97 "lex_p.l"
+#line 100 "lex_p.l"
 { 
                                         trace("SWITCH");
                                         return SWITCH;
@@ -1024,7 +1027,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 101 "lex_p.l"
+#line 104 "lex_p.l"
 { 
                                         trace("BREAK");
                                         return BREAK;
@@ -1032,7 +1035,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 105 "lex_p.l"
+#line 108 "lex_p.l"
 { 
                                         trace("CONTINUE");
                                         return CONTINUE;
@@ -1040,7 +1043,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 109 "lex_p.l"
+#line 112 "lex_p.l"
 { 
                                         trace("CASE");
                                         return CASE;
@@ -1048,7 +1051,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 113 "lex_p.l"
+#line 116 "lex_p.l"
 { 
                                         trace("DEFAULT");
                                         return DEFAULT;
@@ -1056,7 +1059,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 117 "lex_p.l"
+#line 120 "lex_p.l"
 { 
                                         trace("FOR");
                                         return FOR;
@@ -1064,7 +1067,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 121 "lex_p.l"
+#line 124 "lex_p.l"
 { 
                                         trace("WHILE");
                                         return WHILE;
@@ -1072,7 +1075,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 125 "lex_p.l"
+#line 128 "lex_p.l"
 { 
                                         trace("DO");
                                         return DO;
@@ -1080,7 +1083,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 129 "lex_p.l"
+#line 132 "lex_p.l"
 { 
                                         trace("IF");
                                         return IF;
@@ -1089,7 +1092,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 134 "lex_p.l"
+#line 137 "lex_p.l"
 { 
                                         trace("ELSE");
                                         return ELSE;
@@ -1097,7 +1100,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 139 "lex_p.l"
+#line 142 "lex_p.l"
 { 
                                         trace("RETURN");
                                         return RETURN;
@@ -1105,7 +1108,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 144 "lex_p.l"
+#line 147 "lex_p.l"
 { 
                                         trace("(");
                                         return *yytext;
@@ -1113,7 +1116,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 148 "lex_p.l"
+#line 151 "lex_p.l"
 { 
                                         trace(")");
                                         return *yytext;
@@ -1121,7 +1124,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 152 "lex_p.l"
+#line 155 "lex_p.l"
 { 
                                         trace("[");
                                         return *yytext;
@@ -1129,7 +1132,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 156 "lex_p.l"
+#line 159 "lex_p.l"
 { 
                                         trace("]");
                                         return *yytext;
@@ -1137,7 +1140,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 160 "lex_p.l"
+#line 163 "lex_p.l"
 { 
                                         trace(",");
                                         return *yytext;
@@ -1145,12 +1148,12 @@ YY_RULE_SETUP
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 165 "lex_p.l"
+#line 168 "lex_p.l"
 {}
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 167 "lex_p.l"
+#line 170 "lex_p.l"
 { 
                                         trace(";");
                                         return *yytext;
@@ -1158,7 +1161,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 172 "lex_p.l"
+#line 175 "lex_p.l"
 { 
                                         trace("CONSTANT_CHAR"); 
                                         strcpy(yylval.char_ptr, yytext);
@@ -1167,7 +1170,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 178 "lex_p.l"
+#line 181 "lex_p.l"
 { 
                                         trace("CONSTANT_FLOAT"); 
                                         strcpy(yylval.char_ptr, yytext);
@@ -1176,7 +1179,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 184 "lex_p.l"
+#line 187 "lex_p.l"
 { 
                                         trace("CONSTANT_FLOAT"); 
                                         strcpy(yylval.char_ptr, yytext);
@@ -1185,7 +1188,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 190 "lex_p.l"
+#line 193 "lex_p.l"
 { 
                                         trace("CONSTANT_INTEGER"); 
                                         strcpy(yylval.char_ptr, yytext);
@@ -1194,7 +1197,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 196 "lex_p.l"
+#line 199 "lex_p.l"
 { 
                                         trace("IDENTIFIER");
                                         strcpy(yylval.char_ptr, yytext);
@@ -1203,7 +1206,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 202 "lex_p.l"
+#line 205 "lex_p.l"
 { 
                                         trace("SINGLE OPERATOR"); 
                                         return *yytext;
@@ -1211,7 +1214,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 207 "lex_p.l"
+#line 210 "lex_p.l"
 { 
                                         trace("=="); 
                                         return DOUBLE_EQUAL;
@@ -1219,7 +1222,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 211 "lex_p.l"
+#line 214 "lex_p.l"
 { 
                                         trace("!="); 
                                         return NOT_EQUAL;
@@ -1227,7 +1230,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 215 "lex_p.l"
+#line 218 "lex_p.l"
 { 
                                         trace("<"); 
                                         return LESSER_THAN;
@@ -1235,7 +1238,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 219 "lex_p.l"
+#line 222 "lex_p.l"
 { 
                                         trace(">"); 
                                         return GREATER_THAN;
@@ -1243,7 +1246,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 223 "lex_p.l"
+#line 226 "lex_p.l"
 { 
                                         trace("<="); 
                                         return LESSER_EQUAL;
@@ -1251,7 +1254,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 228 "lex_p.l"
+#line 231 "lex_p.l"
 { 
                                         trace("+="); 
                                         return ADD_ASSIGN;
@@ -1259,7 +1262,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-#line 233 "lex_p.l"
+#line 236 "lex_p.l"
 { 
                                         trace("-="); 
                                         return SUB_ASSIGN;
@@ -1267,7 +1270,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
-#line 238 "lex_p.l"
+#line 241 "lex_p.l"
 { 
                                         trace("*="); 
                                         return MUL_ASSIGN;
@@ -1275,7 +1278,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
-#line 243 "lex_p.l"
+#line 246 "lex_p.l"
 { 
                                         trace("/="); 
                                         return DIV_ASSIGN;
@@ -1283,7 +1286,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
-#line 247 "lex_p.l"
+#line 250 "lex_p.l"
 { 
                                         trace("%="); 
                                         return MOD_ASSIGN;
@@ -1291,7 +1294,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 53:
 YY_RULE_SETUP
-#line 252 "lex_p.l"
+#line 255 "lex_p.l"
 { 
                                         trace(">>="); 
                                         return RIGHT_ASSIGN;
@@ -1299,7 +1302,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 54:
 YY_RULE_SETUP
-#line 256 "lex_p.l"
+#line 259 "lex_p.l"
 { 
                                         trace("<<="); 
                                         return LEFT_ASSIGN;
@@ -1307,7 +1310,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 55:
 YY_RULE_SETUP
-#line 261 "lex_p.l"
+#line 264 "lex_p.l"
 { 
                                         trace("&="); 
                                         return AND_ASSIGN;
@@ -1315,7 +1318,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 56:
 YY_RULE_SETUP
-#line 265 "lex_p.l"
+#line 268 "lex_p.l"
 { 
                                         trace("^="); 
                                         return XOR_ASSIGN;
@@ -1323,7 +1326,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 57:
 YY_RULE_SETUP
-#line 269 "lex_p.l"
+#line 272 "lex_p.l"
 { 
                                         trace("|="); 
                                         return OR_ASSIGN;
@@ -1331,7 +1334,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 58:
 YY_RULE_SETUP
-#line 274 "lex_p.l"
+#line 277 "lex_p.l"
 { 
                                         trace(">="); 
                                         return GREATER_EQUAL;
@@ -1339,7 +1342,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 59:
 YY_RULE_SETUP
-#line 278 "lex_p.l"
+#line 281 "lex_p.l"
 { 
                                         trace("&&"); 
                                         return LOGIC_AND;
@@ -1347,7 +1350,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 60:
 YY_RULE_SETUP
-#line 282 "lex_p.l"
+#line 285 "lex_p.l"
 { 
                                         trace("||"); 
                                         return LOGIC_OR;
@@ -1355,7 +1358,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 61:
 YY_RULE_SETUP
-#line 286 "lex_p.l"
+#line 289 "lex_p.l"
 { 
                                         trace("!"); 
                                         return NOT;
@@ -1363,7 +1366,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 62:
 YY_RULE_SETUP
-#line 291 "lex_p.l"
+#line 294 "lex_p.l"
 { 
                                         trace("+="); 
                                         return INCREMENT_OPERATOR;
@@ -1371,7 +1374,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 63:
 YY_RULE_SETUP
-#line 295 "lex_p.l"
+#line 298 "lex_p.l"
 { 
                                         trace("--"); 
                                         return DECREMENT_OPERATOR;
@@ -1379,15 +1382,15 @@ YY_RULE_SETUP
 	YY_BREAK
 case 64:
 YY_RULE_SETUP
-#line 301 "lex_p.l"
+#line 304 "lex_p.l"
 { yyerror("Invalid Token"); }
 	YY_BREAK
 case 65:
 YY_RULE_SETUP
-#line 303 "lex_p.l"
+#line 306 "lex_p.l"
 ECHO;
 	YY_BREAK
-#line 1391 "lex.yy.c"
+#line 1394 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2404,7 +2407,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 303 "lex_p.l"
+#line 306 "lex_p.l"
 
 
 void multiline_comment()
