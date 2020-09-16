@@ -10,7 +10,7 @@ struct symbol_node_struct {
   char *type;
   int line_number;
   int array_dim;
-  char* paramList;
+  char paramList[100];
   int nestLevel;
 
   // symbol_node_t* left; // For binary tree based symbol table 

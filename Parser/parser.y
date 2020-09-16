@@ -28,7 +28,8 @@ extern int yylineno;
 extern int nest_level;
 
 char datatype[100];
-char paramList[100];
+char *paramList = NULL;
+
 %}
 
 // %token INT FLOAT CHAR DOUBLE VOID RETURN
@@ -105,19 +106,22 @@ Identifier_List
     ;
 
 Function_Definition
-	: Type IDENTIFIER '(' Formal_Param_List ')' Compound_Statement      {                            
-                                                                            char funcType[100] = "Function: ";
-                                                                            strcat(funcType, datatype);
-                                                                            Insert(symbol_table,$2, funcType, yylineno, 0, "", nest_level);
-                                                                        }
+	: Type IDENTIFIER '(' Formal_Param_List ')' {
+                                                    char funcType[100] = "Function: ";
+                                                    strcat(funcType, datatype);
+                                                    paramList[strlen(paramList) - 1] = '\0';
+                                                    Insert(symbol_table,$2, funcType, yylineno, 0, paramList, nest_level);
+                                                    memset(paramList, 0, 100*sizeof(paramList[0]));
+                                                }
+     Compound_Statement
 	;
 
 Formal_Param_List
-	: Type IDENTIFIER                                  {Insert(symbol_table,$2,datatype,yylineno, 0, "Params", nest_level);trace("Formal_Param_List Rule 1\n");}
-	| Type '*' IDENTIFIER                              {Insert(symbol_table,$3,datatype,yylineno, 0, "Params", nest_level);trace("Formal_Param_List Rule 2\n");}
+	: Type IDENTIFIER                                  {Insert(symbol_table,$2,datatype,yylineno, 0, "", nest_level);strcat(paramList, datatype);strcat(paramList, " ");strcat(paramList, $2);strcat(paramList, ",");trace("Formal_Param_List Rule 1\n");}
+	| Type '*' IDENTIFIER                              {Insert(symbol_table,$3,datatype,yylineno, 0, "", nest_level);strcat(paramList, datatype);strcat(paramList, " ");strcat(paramList, "*");strcat(paramList, $3);strcat(paramList, ",");trace("Formal_Param_List Rule 2\n");}
 	| Type Array_Notation                              {trace("Formal_Param_List Rule 3\n");}
-	| Type IDENTIFIER ',' Formal_Param_List            {Insert(symbol_table,$2,datatype,yylineno, 0, "Params", nest_level);trace("Formal_Param_List Rule 4\n");}
-	| Type '*' IDENTIFIER ',' Formal_Param_List        {Insert(symbol_table,$3,datatype,yylineno, 0, "Params", nest_level);trace("Formal_Param_List Rule 5\n");}
+	| Type IDENTIFIER ',' Formal_Param_List            {Insert(symbol_table,$2,datatype,yylineno, 0, "", nest_level);strcat(paramList, datatype);strcat(paramList, " ");strcat(paramList, $2);strcat(paramList, ",");trace("Formal_Param_List Rule 4\n");}
+	| Type '*' IDENTIFIER ',' Formal_Param_List        {Insert(symbol_table,$3,datatype,yylineno, 0, "", nest_level);strcat(paramList, datatype);strcat(paramList, " ");strcat(paramList, "*");strcat(paramList, $3);strcat(paramList, ",");trace("Formal_Param_List Rule 5\n");}
 	| Type Array_Notation ',' Formal_Param_List        {trace("Formal_Param_List Rule 6\n");}
 	|
 	;
@@ -363,6 +367,9 @@ inline void trace(char *s){
 
 int main()
 {
+    paramList = malloc(100 * sizeof(char));
+    memset(paramList, 0, 100*sizeof(paramList[0]));
+
     Initialize(symbol_table);
     Initialize(constant_table);
 
