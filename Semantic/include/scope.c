@@ -3,7 +3,7 @@
 #include <stdbool.h>
 #include <string.h>
 
-#include "symbol_table.h"
+#include "sym_table.h"
 #include "scope.h"
 
 int scope_count = 0;

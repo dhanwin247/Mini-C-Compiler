@@ -1,6 +1,6 @@
 #ifndef _SCOPE
 #define _SCOPE
-#include "symbol_table.h"
+#include "sym_table.h"
 
 typedef struct scope_node_struct scope_node_t;
 

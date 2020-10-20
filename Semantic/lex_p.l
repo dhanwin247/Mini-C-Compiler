@@ -20,6 +20,10 @@ single_operators    [+*/%^&.=-]
 "#include"[ ]*"<"(_|{letter})({letter}|{number}|_)*".h>" {
                                         trace("Header File");
                                     }
+define                              {
+                                        trace("DEFINE");
+                                        return DEFINE;
+                                    }
 [\n]                                {
                                     }
 

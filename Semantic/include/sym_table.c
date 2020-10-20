@@ -4,38 +4,45 @@
 #include <string.h>
 #include "sym_table.h"
 
+void symbol_table_initialize(symbol_node_t **symbol_table){
 
-void Initialize(symbol_node_t **symbol_table){
-   for(int i = 0; i < MAX_SYMBOL_TABLE_SIZE; ++i)
+   for(int i=0; i< MAX_SYMBOL_TABLE_SIZE; ++i){
       symbol_table[i] = NULL;
+   }
 }
 
-int Hash(const char *symbol){
+int symbol_table_hash(const char *symbol){
+
    return ((int)symbol[0]) % MAX_SYMBOL_TABLE_SIZE;
 }
 
-symbol_node_t *Create_Node(const char* symbol, const char *type, const int line_number){
+symbol_node_t *create_symbol_node(const char* symbol, const char *type, const int scope_num,  const char *arr_size, const int line_number){
+
    symbol_node_t *node = malloc(sizeof(symbol_node_t));
    node->symbol = malloc(sizeof(char) * (strlen(symbol) +1));
    node->type = malloc(sizeof(char) * (strlen(type) +1));
+   node->arr_size = malloc(sizeof(char) * (strlen(arr_size) +1));
+
    strcpy(node->symbol, symbol);
    strcpy(node->type, type);
+   strcpy(node->arr_size, arr_size);
+   // node->symbol = (char*)symbol;
+   // node->type = (char*)type;
+   node->scope_num = scope_num;
    node->line_number = line_number;
-   node->array_dim = 0;
    node->next = NULL;
+   node->num_params = 0;
+   node->is_function_defined = true;
 
    return node;
 }
 
-void Insert(symbol_node_t **symbol_table, const char* symbol, const char *type, const int line_number, int arrayDim, const char* paramList, int nestLevel){
-   if(Find(symbol_table, symbol))
-      return;
+symbol_node_t * symbol_table_insert(symbol_node_t **symbol_table, const char* symbol, const int scope_num, const char *type, const char *arr_size, const int line_number){
+   // if(symbol_table_lookup(symbol_table, symbol))
+   //    return;
 
-   int hash_index = Hash(symbol);
-   symbol_node_t *node = Create_Node(symbol, type, line_number); 
-   node->array_dim = arrayDim;
-   strcpy(node->paramList, paramList);
-   node->nestLevel = nestLevel;
+   int hash_index = symbol_table_hash(symbol);
+   symbol_node_t *node = create_symbol_node(symbol, type, scope_num, arr_size, line_number);
 
    symbol_node_t *curr = symbol_table[hash_index];
    while(curr != NULL && curr->next != NULL){
@@ -50,35 +57,38 @@ void Insert(symbol_node_t **symbol_table, const char* symbol, const char *type, 
    }
 }
 
-bool Find(symbol_node_t **symbol_table, const char* symbol){
+symbol_node_t * symbol_table_lookup(symbol_node_t **symbol_table, const char* symbol){
 
-   int hash_index = Hash(symbol);
+   int hash_index = symbol_table_hash(symbol);
    for(symbol_node_t *curr = symbol_table[hash_index]; curr != NULL; curr = curr->next){
       // Symbol found in table
       if(!strcmp(curr->symbol, symbol)){
-         return true;
+         return curr;
       }
    }
 
    // Symbol not found in table
-   return false;
+   return NULL;
 }
 
-void Free(symbol_node_t **symbol_table){
+void symbol_table_free(symbol_node_t **symbol_table){
 
    for(int i=0; i< MAX_SYMBOL_TABLE_SIZE; ++i){
       free(symbol_table[i]);
    }
 }
 
-void Display(symbol_node_t **symbol_table, const char *table_name){
-   printf("%s\t\n", table_name);
+void symbol_table_print(symbol_node_t **symbol_table, const char *table_name){
+   printf("\n\n");
+   printf( "%s\t\n" , table_name);
 
-   printf("|\t%-20.20s" "|\t%-20.20s" "|\t%-20.20s|" "|\t%-20.20s|" "|\t%-35.35s|" "|\t%-20.20s|" "\n", "Symbol", "Type", "Line Number", "Array Dimensions", "Parameter Lists", "Nest Level");
+   printf( "|\t%-20.20s" "|\t%-20.20s" "|\t%-20.20s|" "|\t%-20.20s|" "|\t%-20.20s|" "\n" , "Symbol", "Scope_Num", "Type", "Array Dim", "Line Number");
 
    for(int i=0; i< MAX_SYMBOL_TABLE_SIZE; ++i){
       for(symbol_node_t *curr = symbol_table[i]; curr != NULL; curr = curr->next){
-         printf("|\t%-20.20s" "|\t%-20.20s|\t%-20d|\t%-20d|\t%-35.35s|\t%-20d|" "\n", curr->symbol, curr->type, curr->line_number, curr->array_dim, curr->paramList, curr->nestLevel);
+         printf("|\t%-20.20s" "|\t%-20d" "|\t%-20.20s" "|\t%-20.20s |\t%-20d| \n", curr->symbol, curr->scope_num, curr->type, curr->arr_size, curr->line_number);
       }
    }
+
+   printf("\n\n");
 }

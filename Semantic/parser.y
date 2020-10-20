@@ -12,7 +12,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-#include "include/symbol_table.h"
+#include "include/sym_table.h"
 #include "include/scope.h"
 
 #define TRACE_ENABLED false
@@ -47,7 +47,7 @@ symbol_node_t * redefined_error_check(char *symbol);
 %token <char_ptr> CONSTANT_STRING
 %token <char_ptr> CONSTANT_CHAR
 
-%token INCLUDE
+%token INCLUDE DEFINE
 
 // To allow for mutiple datatypes
 %union {
@@ -74,9 +74,11 @@ symbol_node_t * redefined_error_check(char *symbol);
 Begin
     : Include
     | Include Begin
+    | Define Begin
+    | Define
     | Declaration
     | Declaration Begin
-	| Function_Definition
+	  | Function_Definition
     | Function_Definition Begin
     | Function_Declaration
     | Function_Declaration Begin
@@ -380,6 +382,14 @@ Include
 	: Include_Statement
 	;
 
+Define
+  : Define_Statement
+  ;
+Define_Statement
+  : '#' DEFINE IDENTIFIER IDENTIFIER
+  | '#' DEFINE IDENTIFIER CONSTANT_INTEGER
+  | '#' DEFINE IDENTIFIER CONSTANT_FLOAT
+  ;
 
 %%
 
@@ -448,7 +458,7 @@ inline void check_is_function(char *func_name) {
 
 inline void trace(char *s){
     if(TRACE_ENABLED)
-        fprintf(stderr, FORE_CYN "%-20.20s%20.20s%20d\n" RESET, s, yytext, yylineno);
+        fprintf(stderr, "%-20.20s%20.20s%20d\n" , s, yytext, yylineno);
 }
 
 
@@ -462,7 +472,7 @@ int main()
 
     symbol_table_print(symbol_table, "Symbol Table");
     symbol_table_print(constant_table, "Constant Table");
-    printf(FORE_GRN "\n\n Parsing complete  ✔ \n\n" RESET);
+    printf("\n\n Parsing complete  ✔ \n\n" );
 
     symbol_table_free(symbol_table);
     symbol_table_free(constant_table);
@@ -473,7 +483,7 @@ int main()
 
 
 void yyerror(const char *s) {
-	printf(FORE_RED "%d : %s %s\n" RESET, yylineno, s, yytext );
-    printf(FORE_RED "\nParsing failed ✘ \n\n" RESET);
+	printf("%d : %s %s\n" , yylineno, s, yytext );
+    printf("\nParsing failed ✘ \n\n");
     exit(-2);
 }

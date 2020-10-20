@@ -36,7 +36,7 @@ char *paramList = NULL;
 %token SIGNED UNSIGNED LONG SHORT
 %token SWITCH BREAK CONTINUE CASE DEFAULT RETURN
 %token FOR WHILE DO
-%token IF ELSE  
+%token IF ELSE
 %token <char_ptr> CONSTANT_INTEGER
 %token <char_ptr> CONSTANT_FLOAT
 %token <char_ptr> CONSTANT_STRING
@@ -59,18 +59,18 @@ char *paramList = NULL;
 %token <char_ptr> VOID
 
 
-%right '=' ADD_ASSIGN SUB_ASSIGN MUL_ASSIGN DIV_ASSIGN MOD_ASSIGN LEFT_ASSIGN RIGHT_ASSIGN AND_ASSIGN XOR_ASSIGN OR_ASSIGN         
+%right '=' ADD_ASSIGN SUB_ASSIGN MUL_ASSIGN DIV_ASSIGN MOD_ASSIGN LEFT_ASSIGN RIGHT_ASSIGN AND_ASSIGN XOR_ASSIGN OR_ASSIGN
 %left LOGIC_AND LOGIC_OR NOT INCREMENT_OPERATOR DECREMENT_OPERATOR
-%left LESSER_EQUAL GREATER_EQUAL DOUBLE_EQUAL NOT_EQUAL LESSER_THAN GREATER_THAN             
-%left '+' '-' '*' '/' '%' '^' '&' 
+%left LESSER_EQUAL GREATER_EQUAL DOUBLE_EQUAL NOT_EQUAL LESSER_THAN GREATER_THAN
+%left '+' '-' '*' '/' '%' '^' '&'
 
 %start Begin
 
-%% 
-Begin   
+%%
+Begin
     : Include
     | Include Begin
-    | Define Beginx 
+    | Define Begin
     | Define
     | Declaration
     | Declaration Begin
@@ -79,7 +79,7 @@ Begin
 	;
 
 Declaration
-    :  Type Identifier_List ';'    
+    :  Type Identifier_List ';'
     ;
 
 Identifier_List
@@ -92,8 +92,8 @@ Identifier_List
                                                 Insert(symbol_table,$2,datatype,yylineno, 0, "", nest_level);
                                                 datatype[len] = '\0';
                                             }
-    | Array_Notation ',' Identifier_List 
-    | IDENTIFIER                            {Insert(symbol_table,$1,datatype,yylineno, 0, "", nest_level);} 
+    | Array_Notation ',' Identifier_List
+    | IDENTIFIER                            {Insert(symbol_table,$1,datatype,yylineno, 0, "", nest_level);}
     | '*' IDENTIFIER                        {
                                                 int len = strlen(datatype);
                                                 datatype[len] = '*';
@@ -102,7 +102,7 @@ Identifier_List
                                                 datatype[len] = '\0';
                                             }
     | Define_Assign ',' Identifier_List
-    | Define_Assign 
+    | Define_Assign
     ;
 
 Function_Definition
@@ -143,20 +143,20 @@ Modifiers
     ;
 
 Array_Notation
-    : IDENTIFIER '[' ']'            {   
+    : IDENTIFIER '[' ']'            {
                                         char arrayType[100] = "Array: ";
                                         strcat(arrayType, datatype);
                                         Insert(symbol_table, $1, arrayType, yylineno, 1, "", nest_level);
                                     }
-    | IDENTIFIER '[' Expression ']' {   
+    | IDENTIFIER '[' Expression ']' {
                                         char arrayType[100] = "Array: ";
                                         strcat(arrayType, datatype);
                                         Insert(symbol_table,$1, arrayType, yylineno, 1, "", nest_level);
                                     }
-    | '*' IDENTIFIER '[' Expression ']' {   
+    | '*' IDENTIFIER '[' Expression ']' {
                                         int len = strlen(datatype);
                                         datatype[len] = '*';
-                                        datatype[len +1] = '\0';                                
+                                        datatype[len +1] = '\0';
                                         char arrayType[100] = "Array: ";
                                         strcat(arrayType, datatype);
                                         Insert(symbol_table,$2, arrayType,yylineno, 1, "", nest_level);
@@ -167,20 +167,20 @@ Array_Notation
                                         strcat(arrayType, datatype);
                                         Insert(symbol_table,$2, arrayType,yylineno, 1, "", nest_level);
                                     }
-    | IDENTIFIER '[' ']' '[' ']'    {   
+    | IDENTIFIER '[' ']' '[' ']'    {
                                         char arrayType[100] = "Array: ";
                                         strcat(arrayType, datatype);
                                         Insert(symbol_table, $1, arrayType, yylineno, 2, "", nest_level);
                                     }
-    | IDENTIFIER '[' Expression ']' '[' Expression ']' {   
+    | IDENTIFIER '[' Expression ']' '[' Expression ']' {
                                         char arrayType[100] = "Array: ";
                                         strcat(arrayType, datatype);
                                         Insert(symbol_table,$1, arrayType, yylineno, 2, "", nest_level);
                                     }
-    | '*' IDENTIFIER '[' Expression ']' '[' Expression ']' {   
+    | '*' IDENTIFIER '[' Expression ']' '[' Expression ']' {
                                         int len = strlen(datatype);
                                         datatype[len] = '*';
-                                        datatype[len +1] = '\0';                                
+                                        datatype[len +1] = '\0';
                                         char arrayType[100] = "Array: ";
                                         strcat(arrayType, datatype);
                                         Insert(symbol_table,$2, arrayType,yylineno, 2, "", nest_level);
@@ -196,20 +196,20 @@ Array_Notation
 
 
 Define_Assign
-    : IDENTIFIER Assignment_Operator Expression          {Insert(symbol_table,$1,datatype,yylineno, 0, "", nest_level);trace("Define_Assign Rule 1\n");}  
+    : IDENTIFIER Assignment_Operator Expression          {Insert(symbol_table,$1,datatype,yylineno, 0, "", nest_level);trace("Define_Assign Rule 1\n");}
     | '*' IDENTIFIER Assignment_Operator Expression      {Insert(symbol_table,$2,datatype,yylineno, 0, "", nest_level);}
-    | Array_Notation Assignment_Operator Expression                   
+    | Array_Notation Assignment_Operator Expression
     ;
 
 Param_List
     : Expression
     | Expression ',' Param_List
-    | 
+    |
     ;
 
 Assignment
     : IDENTIFIER Assignment_Operator Expression           {trace("Assignment Rule 1\n");}
-    | '*' IDENTIFIER Assignment_Operator Expression         
+    | '*' IDENTIFIER Assignment_Operator Expression
     | Array_Notation Assignment_Operator Expression
     | Primary
     ;
@@ -237,7 +237,7 @@ Logical_Expression
     : Relational_Expression
     | Logical_Expression LOGIC_AND Relational_Expression
     | Logical_Expression LOGIC_OR Relational_Expression
-    | NOT Relational_Expression 
+    | NOT Relational_Expression
     ;
 
 Relational_Expression
@@ -284,7 +284,7 @@ Primary
     ;
 
 Compound_Statement
-    : '{' Statement_List '}'   
+    : '{' Statement_List '}'
 	;
 
 Statement_List
@@ -293,24 +293,24 @@ Statement_List
     ;
 
 Statement
-    : While_Statement 
-    | Declaration   
-    | For_Statement  
-    | If_Statement  
+    : While_Statement
+    | Declaration
+    | For_Statement
+    | If_Statement
     | Assignment    ';'
-    | Return_Statement    
-    | Do_While_Statement      
+    | Return_Statement
+    | Do_While_Statement
     | BREAK ';'
-    | CONTINUE ';'                    
+    | CONTINUE ';'
 	| ';'
-    ; 
+    ;
 
 Return_Statement
     : RETURN Expression ';'   {trace("Return_Statement Call\n");}
     ;
 
 While_Statement
-    : WHILE '(' Expression ')' Statement                                                        
+    : WHILE '(' Expression ')' Statement
     | WHILE '(' Expression ')' Compound_Statement
     ;
 
@@ -320,12 +320,12 @@ Do_While_Statement
 
 
 For_Statement
-    : FOR '(' Assignment ';' Expression ';' Assignment ')' Statement 
-    | FOR '(' Assignment ';' Expression ';' Assignment ')' Compound_Statement 
+    : FOR '(' Assignment ';' Expression ';' Assignment ')' Statement
+    | FOR '(' Assignment ';' Expression ';' Assignment ')' Compound_Statement
     ;
 
 If_Statement
-    : IF '(' Expression ')' Statement Else_Statement     
+    : IF '(' Expression ')' Statement Else_Statement
     | IF '(' Expression ')' Compound_Statement Else_Statement
     ;
 
@@ -336,7 +336,7 @@ Else_Statement
     ;
 
 Function_Call
-    : IDENTIFIER '(' Param_List ')'     {Insert(symbol_table, $1, "Function", yylineno, 0, "", nest_level);trace("Function Call\n");} 
+    : IDENTIFIER '(' Param_List ')'     {Insert(symbol_table, $1, "Function", yylineno, 0, "", nest_level);trace("Function Call\n");}
     ;
 
 Include_Statement
@@ -376,17 +376,17 @@ int main()
     if(!yyparse()){
         Display(symbol_table, "Symbol Table");
         Display(constant_table, "Constant Table");
-        printf("\n\n Parsing complete  ✔ \n\n");    
+        printf("\n\n Parsing complete  ✔ \n\n");
     }
     else
         printf("\nParsing failed ✘ \n\n");
-    
+
     Free(symbol_table);
     Free(constant_table);
 
     return 0;
 }
-         
+
 void yyerror(const char *s) {
 	printf("%d : %s %s\n", yylineno, s, yytext );
 }
