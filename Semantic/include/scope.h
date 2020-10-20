@@ -1,4 +1,3 @@
-
 #ifndef _SCOPE
 #define _SCOPE
 #include "symbol_table.h"

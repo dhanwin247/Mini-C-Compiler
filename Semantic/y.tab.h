@@ -65,34 +65,33 @@ extern int yydebug;
     CONSTANT_STRING = 275,
     CONSTANT_CHAR = 276,
     INCLUDE = 277,
-    DEFINE = 278,
-    IDENTIFIER = 279,
-    INT = 280,
-    CHAR = 281,
-    FLOAT = 282,
-    DOUBLE = 283,
-    VOID = 284,
-    ADD_ASSIGN = 285,
-    SUB_ASSIGN = 286,
-    MUL_ASSIGN = 287,
-    DIV_ASSIGN = 288,
-    MOD_ASSIGN = 289,
-    LEFT_ASSIGN = 290,
-    RIGHT_ASSIGN = 291,
-    AND_ASSIGN = 292,
-    XOR_ASSIGN = 293,
-    OR_ASSIGN = 294,
-    LOGIC_AND = 295,
-    LOGIC_OR = 296,
-    NOT = 297,
-    INCREMENT_OPERATOR = 298,
-    DECREMENT_OPERATOR = 299,
-    LESSER_EQUAL = 300,
-    GREATER_EQUAL = 301,
-    DOUBLE_EQUAL = 302,
-    NOT_EQUAL = 303,
-    LESSER_THAN = 304,
-    GREATER_THAN = 305
+    IDENTIFIER = 278,
+    INT = 279,
+    CHAR = 280,
+    FLOAT = 281,
+    DOUBLE = 282,
+    VOID = 283,
+    ADD_ASSIGN = 284,
+    SUB_ASSIGN = 285,
+    MUL_ASSIGN = 286,
+    DIV_ASSIGN = 287,
+    MOD_ASSIGN = 288,
+    LEFT_ASSIGN = 289,
+    RIGHT_ASSIGN = 290,
+    AND_ASSIGN = 291,
+    XOR_ASSIGN = 292,
+    OR_ASSIGN = 293,
+    LOGIC_AND = 294,
+    LOGIC_OR = 295,
+    NOT = 296,
+    INCREMENT_OPERATOR = 297,
+    DECREMENT_OPERATOR = 298,
+    LESSER_EQUAL = 299,
+    GREATER_EQUAL = 300,
+    DOUBLE_EQUAL = 301,
+    NOT_EQUAL = 302,
+    LESSER_THAN = 303,
+    GREATER_THAN = 304
   };
 #endif
 /* Tokens.  */
@@ -116,45 +115,44 @@ extern int yydebug;
 #define CONSTANT_STRING 275
 #define CONSTANT_CHAR 276
 #define INCLUDE 277
-#define DEFINE 278
-#define IDENTIFIER 279
-#define INT 280
-#define CHAR 281
-#define FLOAT 282
-#define DOUBLE 283
-#define VOID 284
-#define ADD_ASSIGN 285
-#define SUB_ASSIGN 286
-#define MUL_ASSIGN 287
-#define DIV_ASSIGN 288
-#define MOD_ASSIGN 289
-#define LEFT_ASSIGN 290
-#define RIGHT_ASSIGN 291
-#define AND_ASSIGN 292
-#define XOR_ASSIGN 293
-#define OR_ASSIGN 294
-#define LOGIC_AND 295
-#define LOGIC_OR 296
-#define NOT 297
-#define INCREMENT_OPERATOR 298
-#define DECREMENT_OPERATOR 299
-#define LESSER_EQUAL 300
-#define GREATER_EQUAL 301
-#define DOUBLE_EQUAL 302
-#define NOT_EQUAL 303
-#define LESSER_THAN 304
-#define GREATER_THAN 305
+#define IDENTIFIER 278
+#define INT 279
+#define CHAR 280
+#define FLOAT 281
+#define DOUBLE 282
+#define VOID 283
+#define ADD_ASSIGN 284
+#define SUB_ASSIGN 285
+#define MUL_ASSIGN 286
+#define DIV_ASSIGN 287
+#define MOD_ASSIGN 288
+#define LEFT_ASSIGN 289
+#define RIGHT_ASSIGN 290
+#define AND_ASSIGN 291
+#define XOR_ASSIGN 292
+#define OR_ASSIGN 293
+#define LOGIC_AND 294
+#define LOGIC_OR 295
+#define NOT 296
+#define INCREMENT_OPERATOR 297
+#define DECREMENT_OPERATOR 298
+#define LESSER_EQUAL 299
+#define GREATER_EQUAL 300
+#define DOUBLE_EQUAL 301
+#define NOT_EQUAL 302
+#define LESSER_THAN 303
+#define GREATER_THAN 304
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 
 union YYSTYPE
 {
-#line 50 "parser.y" /* yacc.c:1909  */
+#line 53 "parser.y" /* yacc.c:1909  */
 
 	char char_ptr[100];
 
-#line 158 "y.tab.h" /* yacc.c:1909  */
+#line 156 "y.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;

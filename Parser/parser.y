@@ -70,7 +70,7 @@ char *paramList = NULL;
 Begin   
     : Include
     | Include Begin
-    | Define Begin
+    | Define Beginx 
     | Define
     | Declaration
     | Declaration Begin
