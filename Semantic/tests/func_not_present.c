@@ -3,7 +3,7 @@
 int main()
 {
     int size,m=0,l=0, i, j;
-    printf("Type the length of the array\n");
+    printfn("Type the length of the array\n");
     scanf("%d",&size);
     int array[size];
     printf("type the elements of the array\n");
