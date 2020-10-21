@@ -2175,7 +2175,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 395 "parser.y" /* yacc.c:1906  */
+#line 394 "parser.y" /* yacc.c:1906  */
 
 
 inline void scope_error_check(char *symbol){

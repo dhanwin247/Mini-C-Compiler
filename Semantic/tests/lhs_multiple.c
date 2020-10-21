@@ -11,7 +11,7 @@ int main() {
   i = 2;
   j = 3;
   funct(i, j);
-  while("sjnefin"){
+  while(k > 1){
     int m;
   }
   i+j = k;

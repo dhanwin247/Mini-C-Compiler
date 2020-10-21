@@ -72,7 +72,6 @@ scope_node_t *scope_check(symbol_node_t **symbol_table, char *symbol, scope_node
             }
         }
     }
-
     return NULL;
 }
 
