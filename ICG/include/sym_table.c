@@ -1,0 +1,94 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <stdbool.h>
+#include <string.h>
+#include "sym_table.h"
+
+void symTabInit(symbol_node_t **symbol_table){
+
+   for(int i=0; i< MAX_SYMBOL_TABLE_SIZE; ++i){
+      symbol_table[i] = NULL;
+   }
+}
+
+int Hash(const char *symbol){
+
+   return ((int)symbol[0]) % MAX_SYMBOL_TABLE_SIZE;
+}
+
+symbol_node_t *newNode(const char* symbol, const char *type, const int scope_num,  const char *arr_size, const int line_number){
+
+   symbol_node_t *node = malloc(sizeof(symbol_node_t));
+   node->symbol = malloc(sizeof(char) * (strlen(symbol) +1));
+   node->type = malloc(sizeof(char) * (strlen(type) +1));
+   node->arr_size = malloc(sizeof(char) * (strlen(arr_size) +1));
+
+   strcpy(node->symbol, symbol);
+   strcpy(node->type, type);
+   strcpy(node->arr_size, arr_size);
+   // node->symbol = (char*)symbol;
+   // node->type = (char*)type;
+   node->scope_num = scope_num;
+   node->line_number = line_number;
+   node->next = NULL;
+   node->num_params = 0;
+   node->is_function_defined = true;
+
+   return node;
+}
+
+symbol_node_t * symTabInsert(symbol_node_t **symbol_table, const char* symbol, const int scope_num, const char *type, const char *arr_size, const int line_number){
+   // if(symTabFind(symbol_table, symbol))
+   //    return;
+
+   int hash_index = Hash(symbol);
+   symbol_node_t *node = newNode(symbol, type, scope_num, arr_size, line_number);
+
+   symbol_node_t *curr = symbol_table[hash_index];
+   while(curr != NULL && curr->next != NULL){
+      curr = curr->next;
+   }
+   // Add as first item
+   if(curr == NULL){
+      symbol_table[hash_index] = node;
+   }
+   else{
+      curr->next= node;
+   }
+}
+
+symbol_node_t * symTabFind(symbol_node_t **symbol_table, const char* symbol){
+
+   int hash_index = Hash(symbol);
+   for(symbol_node_t *curr = symbol_table[hash_index]; curr != NULL; curr = curr->next){
+      // Symbol found in table
+      if(!strcmp(curr->symbol, symbol)){
+         return curr;
+      }
+   }
+
+   // Symbol not found in table
+   return NULL;
+}
+
+void symTabFree(symbol_node_t **symbol_table){
+
+   for(int i=0; i< MAX_SYMBOL_TABLE_SIZE; ++i){
+      free(symbol_table[i]);
+   }
+}
+
+void Display(symbol_node_t **symbol_table, const char *table_name){
+   printf("\n\n");
+   printf("%s\t\n", table_name);
+
+   printf("|\t%-20.20s" "|\t%-20.20s" "|\t%-20.20s|" "|\t%-20.20s|" "|\t%-20.20s|" "\n", "Symbol", "Scope_Num", "Type", "Array Dim", "Line Number");
+
+   for(int i=0; i< MAX_SYMBOL_TABLE_SIZE; ++i){
+      for(symbol_node_t *curr = symbol_table[i]; curr != NULL; curr = curr->next){
+         printf("|\t%-20.20s" "|\t%-20d" "|\t%-20.20s" "|\t%-20.20s|\t%-20d|" "\n", curr->symbol, curr->scope_num, curr->type, curr->arr_size, curr->line_number);
+      }
+   }
+
+   printf("\n\n");
+}
