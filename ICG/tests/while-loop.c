@@ -4,7 +4,7 @@
 int main() 
 {
   int a=0,b=5;
-  for(a=0;a<b;a++)
+  while(a<b)
   {
     a = a+1;
   }
