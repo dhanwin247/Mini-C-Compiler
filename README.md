@@ -1,5 +1,5 @@
 # Compiler-Design-Lab
-A Mini C Compiler built as a part of the Compiler Design Course.
+A Mini C Compiler built using Bison and Flex.
 
 Team Members : 
 - Dhanwin Rao --> 181CO217
