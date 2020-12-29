@@ -1,4 +1,3 @@
-# Compiler-Design-Lab
 A Mini C Compiler built using Bison and Flex.
 
 Team Members : 
